@@ -1,0 +1,615 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Награды экоспасателя — С океаном начистоту</title>
+<meta name="description" content="Скрытая страница цифровых наград проекта «С океаном начистоту». Доступна только участникам, прошедшим Эко-квест." />
+<meta name="robots" content="noindex,nofollow" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800;900&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<script src="sprite.js" defer></script>
+<script src="bubbles-cursor.js" defer></script>
+</head>
+<body class="locked">
+<div class="site-gradient-orbs" aria-hidden="true"></div>
+
+
+<!-- ===== NAV ===== -->
+<header class="nav">
+  <div class="wrap nav-row">
+    <a href="index.html" class="brand">
+      <div class="brand-mark brand-mark--clean">
+        <img src="assets/logo_moskvarium_white_big.png" alt="Москвариум" class="brand-logo-msq">
+      </div>
+      <div class="brand-text">
+        <span class="brand-x">×</span>
+        <img src="assets/logo_bbdo.png" alt="BBDO" class="brand-logo-bbdo">
+        <small class="brand-tag">социальная инициатива</small>
+      </div>
+    </a>
+    <nav class="menu">
+      <a href="index.html">Главная</a>
+      <a href="eco-quest3.html">Эко-квест</a>
+    </nav>
+    <a href="eco-quest3.html" class="cta ghost">К квесту</a>
+  </div>
+</header>
+
+<!-- ===== GATE (locked) ===== -->
+<section class="gate">
+  <div class="gate-card">
+    <div class="lock">
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+    </div>
+    <h1>Награды&nbsp;ждут</h1>
+    <p>Эта страница открывается после прохождения Эко-квеста. Введи кодовое слово, которое
+       ты собрал по буквам на 10 локациях Москвариума.</p>
+    <input class="gate-input" id="codeInput" placeholder="кодовое слово" autocomplete="off" autocapitalize="characters" />
+    <div class="gate-error" id="codeError">&nbsp;</div>
+    <button class="cta lg gate-cta" id="codeBtn">
+      Открыть награды
+      <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+    </button>
+    <div class="gate-hint">Ещё не проходил квест? <a href="eco-quest3.html">Узнать как</a></div>
+  </div>
+</section>
+
+<!-- ===== UNLOCKED CONTENT ===== -->
+<div class="vault">
+
+<!-- ===== HERO с kv_rewards_main.png ===== -->
+<section class="hero-r">
+  <img class="hero-bg" src="assets/kv_rewards_main.png" alt="С океаном начистоту — награды">
+  <div class="wrap">
+    <div class="hero-r-grid">
+      <img class="hero-status" src="assets/status_reward.png" alt="Статус друга океана">
+      <div class="hero-text">
+        <span class="chip">Доступ открыт</span>
+        <h1>Спасибо, что<br/>не остался в стороне.</h1>
+        <div class="code-script">«ЭКОЛОГИКА»</div>
+        <p class="lead">
+          Ты прошёл маршрут — и теперь ты <b>друг океана</b>. Ниже — цифровые награды и
+          материалы, которые помогут продолжать делать чистую воду чуть ближе.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ЦИФРОВЫЕ НАГРАДЫ ===== -->
+<section class="section-rewards">
+  <div class="wrap">
+    <div class="eyebrow"><span class="bar"></span> Цифровые награды</div>
+    <h2>Шесть подарков<br/><span style="color:var(--coral)">от команды проекта</span></h2>
+
+    <div class="r-grid">
+
+      <!-- 1 Stickerpack -->
+      <div class="r-card c1">
+        <div class="r-art stickers">
+          <div class="sticker-grid">
+            <div class="s"><img loading="lazy" decoding="async" src="assets/character_1.jpg" alt="Скат"></div>
+            <div class="s"><img loading="lazy" decoding="async" src="assets/character_7.jpg" alt="Иния"></div>
+            <div class="s"><img loading="lazy" decoding="async" src="assets/character_10.jpg" alt="Кит"></div>
+            <div class="s"><img loading="lazy" decoding="async" src="assets/character_6.jpg" alt="Черепаха"></div>
+          </div>
+        </div>
+        <div class="r-body">
+          <div class="lbl">Сразу для мессенджеров</div>
+          <h3>Стикерпак с персонажами</h3>
+          <p>10 стикеров с маскотами проекта для Telegram и WhatsApp. Каждый — со своей репликой.</p>
+          <button class="r-action">Добавить в Telegram →</button>
+        </div>
+      </div>
+
+      <!-- 2 Wallpapers -->
+      <div class="r-card c2">
+        <div class="r-art wallpapers">
+          <div class="wp-stack">
+            <div class="wp-phone"><img loading="lazy" decoding="async" src="assets/character_7.jpg" alt="Иния"></div>
+            <div class="wp-phone"><img loading="lazy" decoding="async" src="assets/character_10.jpg" alt="Кит"></div>
+            <div class="wp-phone"><img loading="lazy" decoding="async" src="assets/character_6.jpg" alt="Черепаха"></div>
+          </div>
+        </div>
+        <div class="r-body">
+          <div class="lbl">Под iOS и Android</div>
+          <h3>Обои для телефона</h3>
+          <p>10 обоев в разрешении 2778×1284 — по одному на каждого маскота. Архив весит около 18 МБ.</p>
+          <button class="r-action">Скачать архив (.zip)</button>
+        </div>
+      </div>
+
+      <!-- 3 Certificate -->
+      <div class="r-card c3">
+        <div class="r-art cert-art">
+          <div class="cert">
+            <div>
+              <div class="ttl">Сертификат участника</div>
+              <div class="nm">Имя Фамилия</div>
+              <div class="info">Друг океана · прошёл Эко-квест Москвариума и собрал кодовое слово «ЭКОЛОГИКА»</div>
+            </div>
+            <div class="cert-foot">Москвариум × BBDO · 2026</div>
+            <div class="seal">ЭКО<br/>ЛОГИКА</div>
+          </div>
+        </div>
+        <div class="r-body">
+          <div class="lbl">Именной — впиши имя</div>
+          <h3>Цифровой сертификат</h3>
+          <p>«Иванов Иван — друг океанов, прошёл Эко-квест Москвариума на&nbsp;100%». Можно сохранить в PDF и распечатать.</p>
+          <button class="r-action">Получить сертификат</button>
+        </div>
+      </div>
+
+      <!-- 4 Promocodes -->
+      <div class="r-card c4">
+        <div class="r-art promo-art">
+          <div class="promo-stack">
+            <div class="promo-tag">
+              <div class="ico">%</div>
+              <div><div class="code">OCEAN-15</div><div class="by">Москвариум · −15%</div></div>
+            </div>
+            <div class="promo-tag">
+              <div class="ico">%</div>
+              <div><div class="code">CLEAN-WATER</div><div class="by">Партнёр-эко · −10%</div></div>
+            </div>
+            <div class="promo-tag">
+              <div class="ico">%</div>
+              <div><div class="code">FRIEND-SEA</div><div class="by">Магазин · −20%</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="r-body">
+          <div class="lbl">От партнёров проекта</div>
+          <h3>Промокоды</h3>
+          <p>Скидки на повторное посещение Москвариума, многоразовые товары и эко-бренды от партнёров проекта.</p>
+          <button class="r-action">Активировать коды</button>
+        </div>
+      </div>
+
+      <!-- 5 Eco-checklist -->
+      <div class="r-card c5">
+        <div class="r-art chk-art">
+          <div class="chk">
+            <div class="h">Эко-чек-лист 4R</div>
+            <div class="t">10 шагов на каждый день</div>
+            <ul>
+              <li class="done">Многоразовая сумка</li>
+              <li class="done">Бутылка с собой</li>
+              <li>Электронные чеки</li>
+              <li>Душ вместо ванны</li>
+              <li>Сортировка дома</li>
+              <li>Биоразлагаемая химия</li>
+            </ul>
+          </div>
+        </div>
+        <div class="r-body">
+          <div class="lbl">Памятка в кармане</div>
+          <h3>Эко-чек-лист</h3>
+          <p>10 простых пунктов из принципа 4R, которые легко проверять каждую неделю. Формат A6, удобно распечатать.</p>
+          <button class="r-action">Скачать PDF</button>
+        </div>
+      </div>
+
+      <!-- 6 Sort guide -->
+      <div class="r-card c6">
+        <div class="r-art sort-art">
+          <img class="sort-img" src="assets/sortirovka-musora.png" alt="Памятка по сортировке мусора" onerror="this.onerror=null;this.src='assets/sortirovka-musora.jpg';">
+        </div>
+        <div class="r-body">
+          <div class="lbl">Что куда сдавать</div>
+          <h3>Памятка по сортировке</h3>
+          <p>Маркировки пластиков, что брать в обычный контейнер, а что — в спецприёмку. Таблица + чек-маркеры.</p>
+          <button class="r-action">Открыть памятку</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== КУДА ПЛЫТЬ ДАЛЬШЕ ===== -->
+<section class="section-books">
+  <div class="wrap">
+    <div class="eyebrow"><span class="bar"></span> Куда плыть дальше</div>
+    <h2>Подборка материалов<br/><span style="color:var(--coral)">от партнёров</span></h2>
+    <p class="lead">
+      Пять книг по экологии океанов. Кликай по обложке — откроется страница книги в магазине.
+    </p>
+
+    <div class="books-grid">
+      <a class="book b1" href="https://moretoys.shop/goods/tproduct/266276493-149325957172-komiks-uznat-za-vihodnie-okean" target="_blank" rel="noopener noreferrer">
+        <div class="cover">
+          <img class="book-cover-img" loading="lazy" decoding="async" src="assets/books/44222758.png.webp" alt="Комикс «Узнать за выходные. Океан»">
+        </div>
+        <div class="meta">
+          <div class="nm">Узнать за выходные. Океан</div>
+          <div class="by">Гаэль Альмерас</div>
+          <div class="arrow">Открыть </div>
+        </div>
+      </a>
+
+      <a class="book b2" href="https://moretoys.shop/goods/tproduct/266276493-445790571372-kniga-podvodnii-mir" target="_blank" rel="noopener noreferrer">
+        <div class="cover">
+          <img class="book-cover-img" loading="lazy" decoding="async" src="assets/books/78793430.jpg.webp" alt="Книга «Подводный мир»">
+        </div>
+        <div class="meta">
+          <div class="nm">Подводный мир</div>
+          <div class="by">Кристер Фуглесанг</div>
+          <div class="arrow">Открыть </div>
+        </div>
+      </a>
+
+      <a class="book b3" href="https://moretoys.shop/goods/tproduct/266276493-160262245581-kniga-anatomiya-okeana" target="_blank" rel="noopener noreferrer">
+        <div class="cover">
+          <img class="book-cover-img" loading="lazy" decoding="async" src="assets/books/78252336.jpg.webp" alt="Книга «Анатомия океана»">
+        </div>
+        <div class="meta">
+          <div class="nm">Анатомия океана</div>
+          <div class="by">Джулия Ротман</div>
+          <div class="arrow">Открыть </div>
+        </div>
+      </a>
+
+      <a class="book b4" href="https://moretoys.shop/goods/tproduct/266276493-573318803452-kniga-voda-biografiya-rasskazannaya-chel" target="_blank" rel="noopener noreferrer">
+        <div class="cover">
+          <img class="book-cover-img" loading="lazy" decoding="async" src="assets/books/77539917.png.webp" alt="Книга «Вода. Биография, рассказанная человечеству»">
+        </div>
+        <div class="meta">
+          <div class="nm">Вода. Биография, рассказанная человечеству</div>
+          <div class="by">Джулио Боккалетти</div>
+          <div class="arrow">Открыть </div>
+        </div>
+      </a>
+
+      <a class="book b5" href="https://moretoys.shop/goods/tproduct/266276493-529710770402-kniga-pochemu-voda-takaya-tsennaya" target="_blank" rel="noopener noreferrer">
+        <div class="cover">
+          <img class="book-cover-img" loading="lazy" decoding="async" src="assets/books/80350927.png.webp" alt="Книга «Почему вода такая ценная?»">
+        </div>
+        <div class="meta">
+          <div class="nm">Почему вода такая ценная?</div>
+          <div class="by">Анн Олливер</div>
+          <div class="arrow">Открыть </div>
+        </div>
+      </a>
+    </div>
+
+    <p class="partner-links">
+      <b>Партнёрские эко-ресурсы:</b>&nbsp;
+      <a href="https://recyclemap.ru" target="_blank" rel="noopener">recyclemap.ru</a> ·
+      <a href="https://wwf.ru" target="_blank" rel="noopener">wwf.ru</a> ·
+      <a href="https://razdelnyy-sbor.ru" target="_blank" rel="noopener">razdelnyy-sbor.ru</a>
+    </p>
+  </div>
+</section>
+
+<!-- ===== МИНИ-ИГРА «лови мусор» ===== -->
+<section class="section-game" id="game">
+  <div class="wrap">
+    <div class="eyebrow"><span class="bar"></span> Мини-игра</div>
+    <h2>Лови мусор!<br/><span style="color:var(--coral)">30 секунд — и победа.</span></h2>
+    <p class="lead">
+      Сверху падают разные виды мусора — кликай по ним, чтобы убрать их из океана.
+      Чем больше поймаешь за полминуты — тем чище вода. Готов?
+    </p>
+
+    <div class="game-stage" id="gameStage">
+      <img class="game-bg" src="assets/mini_game/game_back.mp4" alt="">
+
+      <div class="game-hud">
+        <div class="game-pill score"><span>Поймано</span><b id="gScore">0</b></div>
+        <div class="game-pill timer"><span>Осталось</span><b id="gTimer">30</b><span style="font-size:11px">сек</span></div>
+      </div>
+
+      <!-- Стартовый оверлей -->
+      <div class="game-overlay" id="gameStart">
+        <h3>Готов чистить океан?</h3>
+        <p>Тапай по падающим предметам, чтобы убрать их в мусорку. У тебя 30 секунд.</p>
+        <button class="cta lg" id="gameStartBtn">
+          Начать
+          <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+
+      <!-- Финальный оверлей -->
+      <div class="game-overlay hidden" id="gameEnd">
+        <div class="game-result">
+          <img class="turtle" src="assets/mini_game/game_character.png" alt="Черепаха">
+          <div class="msg">
+            <div class="score-big"><span id="gFinalScore">0</span><small>поймано</small></div>
+            <h4 id="gResultTitle">Хороший улов!</h4>
+            <p id="gResultText">Океан стал чуть чище благодаря тебе.</p>
+            <div class="game-actions">
+              <button class="cta" id="gameRestart">Сыграть ещё</button>
+              <a href="#tips" class="cta ghost">Советы 4R</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Share ===== -->
+<section class="section-share">
+  <div class="wrap">
+    <span class="chip">Расскажи другим</span>
+    <h2 style="margin-top:18px">Океан скажет<br/><span style="color:var(--coral)">тебе спасибо.</span></h2>
+    <p class="lead" style="margin:0 auto;max-width:640px">
+      Чем больше людей пройдёт квест и узнает о простых эко-привычках, тем заметнее эффект.
+      Поделись проектом с друзьями.
+    </p>
+    <div class="share-actions">
+      <button class="cta lg" id="shareBtn">
+        Поделиться проектом
+        <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7"/><path d="M16 6l-4-4-4 4"/><path d="M12 2v14"/></svg>
+      </button>
+      <a href="index3.html#tips" class="cta ghost lg">Все советы 4R</a>
+    </div>
+  </div>
+</section>
+
+</div><!-- /vault -->
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="brand brand--footer">
+          <div class="brand-mark brand-mark--clean">
+            <img src="assets/logo_moskvarium_white_big.png" alt="Москвариум" class="brand-logo-msq">
+          </div>
+          <div class="brand-text">
+            <span class="brand-x">×</span>
+            <img src="assets/logo_bbdo.png" alt="BBDO" class="brand-logo-bbdo">
+            <small class="brand-tag">социальная инициатива «С океаном начистоту»</small>
+          </div>
+        </div>
+        <p class="foot-info">Скрытая страница цифровых наград. Доступна только участникам Эко-квеста.</p>
+      </div>
+      <div>
+        <h5>Проект</h5>
+        <a href="index3.html#about">О проекте</a>
+        <a href="index3.html#problem">Проблема</a>
+        <a href="index3.html#tips">Что делать</a>
+      </div>
+      <div>
+        <h5>Эко-квест</h5>
+        <a href="eco-quest3.html">Как работает</a>
+        <a href="eco-quest3.html#route">Карта маршрута</a>
+        <a href="eco-quest3.html#mascots">Персонажи</a>
+      </div>
+      <div>
+        <h5>Москвариум</h5>
+        <a href="https://moskvarium.ru" target="_blank" rel="noopener">moskvarium.ru</a>
+        <a href="#">Москва, Проспект Мира 119с23</a>
+        <a href="#">Время работы: 10:00 – 22:00</a>
+        <a href="tel:+74955432255">+7 (495) 543-22-55</a>
+      </div>
+    </div>
+    <div class="legal">
+      <div>© 2026 ООО «Возрождение ВВЦ». ОГРН 1137746056788. Реклама. 6+</div>
+      <div>BBDO Moscow · Креативная разработка</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const SECRET = 'экологика';
+  const body = document.body;
+  const input = document.getElementById('codeInput');
+  const err = document.getElementById('codeError');
+  const btn = document.getElementById('codeBtn');
+
+  function tryUnlock(value){
+    const v = (value || '').toLowerCase().replace(/[^а-яёa-z]/gi,'');
+    if (v === SECRET){
+      body.classList.remove('locked');
+      body.classList.add('unlocked');
+      try { localStorage.setItem('msq-quest-done', '1'); } catch(e){}
+      err.textContent = ' ';
+      window.scrollTo({top:0});
+      return true;
+    }
+    err.textContent = 'Неверное кодовое слово. Соберите его на 10 локациях квеста.';
+    return false;
+  }
+  try {
+    if (localStorage.getItem('msq-quest-done') === '1' || location.hash === '#unlock') {
+      body.classList.remove('locked');
+      body.classList.add('unlocked');
+    }
+  } catch(e){}
+  btn.addEventListener('click', ()=> tryUnlock(input.value));
+  input.addEventListener('keydown', e=>{ if (e.key === 'Enter') tryUnlock(input.value); });
+
+  const shareBtn = document.getElementById('shareBtn');
+  if (shareBtn) {
+    shareBtn.addEventListener('click', async ()=>{
+      const data = {
+        title: 'С океаном начистоту',
+        text: 'Социальная инициатива Москвариума и BBDO. Прошёл Эко-квест и собрал кодовое слово «Экологика».',
+        url: location.origin + location.pathname.replace(/[^/]+$/,'') + 'index3.html'
+      };
+      try {
+        if (navigator.share) await navigator.share(data);
+        else { await navigator.clipboard.writeText(data.url); shareBtn.innerHTML = 'Ссылка скопирована ✓'; }
+      } catch(e){}
+    });
+  }
+
+  // (декоративные site-bubbles удалены)
+
+  // ============ ПАРАЛЛАКС Status_Reward на hero ============
+  const heroStatus = document.querySelector('.hero-status');
+  const heroR = document.querySelector('.hero-r');
+  if (heroStatus && heroR) {
+    let tick = false;
+    const updateStatus = () => {
+      const rect = heroR.getBoundingClientRect();
+      // 0 когда верх hero у верха окна, 1 когда низ hero у верха окна
+      const progress = Math.max(0, Math.min(1, -rect.top / Math.max(rect.height, 1)));
+      heroStatus.style.transform = `translate3d(0, ${progress * 60}px, 0)`;
+      tick = false;
+    };
+    updateStatus();
+    window.addEventListener('scroll', () => {
+      if (!tick) { window.requestAnimationFrame(updateStatus); tick = true; }
+    }, { passive:true });
+    window.addEventListener('resize', updateStatus);
+  }
+
+  // ============ МИНИ-ИГРА «лови мусор» ============
+  (function(){
+    const stage     = document.getElementById('gameStage');
+    const startOvr  = document.getElementById('gameStart');
+    const startBtn  = document.getElementById('gameStartBtn');
+    const endOvr    = document.getElementById('gameEnd');
+    const restart   = document.getElementById('gameRestart');
+    const scoreEl   = document.getElementById('gScore');
+    const timerEl   = document.getElementById('gTimer');
+    const finalScr  = document.getElementById('gFinalScore');
+    const titleEl   = document.getElementById('gResultTitle');
+    const textEl    = document.getElementById('gResultText');
+    if (!stage) return;
+
+    const ITEMS = [
+      'assets/mini_game/item1.png',
+      'assets/mini_game/item2.png',
+      'assets/mini_game/item3.png',
+      'assets/mini_game/item4.png',
+      'assets/mini_game/item5.png',
+      'assets/mini_game/item6.png',
+      'assets/mini_game/item7.png'
+    ];
+    const DURATION = 30;     // сек
+    let score = 0, timeLeft = 0;
+    let timerId = null, spawnId = null, running = false;
+    const liveItems = new Set();
+
+    function setScore(n){ score = n; scoreEl.textContent = n; }
+    function setTimer(n){ timeLeft = n; timerEl.textContent = n; }
+
+    function spawnItem(){
+      if (!running) return;
+      const stageW = stage.clientWidth;
+      const stageH = stage.clientHeight;
+      const item = document.createElement('button');
+      item.className = 'game-item';
+      item.type = 'button';
+      const img = document.createElement('img');
+      img.src = ITEMS[Math.floor(Math.random() * ITEMS.length)];
+      img.alt = '';
+      item.appendChild(img);
+
+      // адаптивный размер: на мобильном меньше, чтобы не закрывать экран
+      const isMobile = window.innerWidth < 768;
+      const baseSize = isMobile ? 78 : 158;
+      const size = baseSize + Math.random() * 30;
+      item.style.width = size + 'px';
+      item.style.height = size + 'px';
+
+      // случайная горизонтальная позиция в пределах stage
+      const x = Math.random() * (stageW - size);
+      item.style.left = x + 'px';
+      item.style.top = (-size - 10) + 'px';
+
+      // случайная скорость падения 3.5—7 сек
+      const fallTime = 4.5 + Math.random() * 3.5;
+      const drift = (Math.random() - 0.5) * 60; // лёгкое боковое смещение
+      const rotate = (Math.random() - 0.5) * 120;
+
+      stage.appendChild(item);
+      liveItems.add(item);
+
+      // Старт анимации через requestAnimationFrame, чтобы CSS-transition подхватился
+      requestAnimationFrame(() => {
+        item.style.transition = `transform ${fallTime}s linear, top ${fallTime}s linear`;
+        item.style.top = (stageH + 20) + 'px';
+        item.style.transform = `translate(${drift}px, 0) rotate(${rotate}deg)`;
+      });
+
+      const removeItem = () => {
+        if (item.parentNode) item.parentNode.removeChild(item);
+        liveItems.delete(item);
+      };
+
+      // если не поймали — удалить
+      const fallTimer = setTimeout(removeItem, (fallTime + 0.2) * 1000);
+
+      item.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (item.classList.contains('popped')) return;
+        item.classList.add('popped');
+        clearTimeout(fallTimer);
+        setScore(score + 1);
+        setTimeout(removeItem, 380);
+      });
+    }
+
+    function clearStage(){
+      liveItems.forEach(it => { if (it.parentNode) it.parentNode.removeChild(it); });
+      liveItems.clear();
+    }
+
+    function startGame(){
+      setScore(0);
+      setTimer(DURATION);
+      startOvr.classList.add('hidden');
+      endOvr.classList.add('hidden');
+      clearStage();
+      running = true;
+
+      // спавним каждые 380—700 мс
+      const spawnLoop = () => {
+        if (!running) return;
+        spawnItem();
+        const next = 360 + Math.random() * 320;
+        spawnId = setTimeout(spawnLoop, next);
+      };
+      spawnLoop();
+
+      // таймер
+      timerId = setInterval(() => {
+        setTimer(timeLeft - 1);
+        if (timeLeft <= 0) endGame();
+      }, 1000);
+    }
+
+    function endGame(){
+      running = false;
+      clearTimeout(spawnId);
+      clearInterval(timerId);
+      // после 1 секунды — даём упавшим долететь, потом убираем
+      setTimeout(clearStage, 1200);
+
+      // Текст результата от черепахи
+      finalScr.textContent = score;
+      let title, text;
+      if (score >= 30){
+        title = 'Герой океана!';
+        text = 'Невероятный улов. Океан тебе аплодирует своими волнами.';
+      } else if (score >= 18){
+        title = 'Друг океана';
+        text = 'Отличная работа. Ещё бы пару таких — и пляжи стали бы чище.';
+      } else if (score >= 8){
+        title = 'Хороший улов!';
+        text = 'Уже неплохо! Главное — продолжать в реальной жизни тоже.';
+      } else {
+        title = 'Ты можешь лучше!';
+        text = 'Это только начало. Попробуй ещё — океан скажет спасибо.';
+      }
+      titleEl.textContent = title;
+      textEl.textContent  = text;
+      endOvr.classList.remove('hidden');
+    }
+
+    if (startBtn) startBtn.addEventListener('click', startGame);
+    if (restart)  restart.addEventListener('click', startGame);
+  })();
+</script>
+</body>
+</html>

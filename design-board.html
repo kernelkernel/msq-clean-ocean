@@ -1,0 +1,1389 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Дизайн-борд — С океаном начистоту · Москвариум × BBDO</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800;900&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0a1822; --deep:#06121b; --abyss:#020a12;
+    --teal:#0d3a4d; --teal-2:#11536b;
+    --aqua:#3ec7e0; --aqua-glow:#7feaff;
+    --coral:#ff6a5c; --coral-2:#ff8a76; --coral-soft:#ffb7ad;
+    --sand:#f6efe6; --paper:#fff7ec;
+    --line:rgba(255,255,255,.12); --muted:rgba(255,255,255,.65);
+    --board:#0f1923;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    font-family:'Manrope',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+    color:#fff;
+    background:
+      radial-gradient(60% 40% at 18% 10%, rgba(127,234,255,.07), transparent 60%),
+      radial-gradient(50% 40% at 90% 90%, rgba(255,106,92,.06), transparent 60%),
+      linear-gradient(180deg,#070f17 0%, #050b13 100%);
+    -webkit-font-smoothing:antialiased;min-height:100vh;
+  }
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+
+  .board{max-width:1480px;margin:0 auto;padding:48px 36px 100px}
+
+  /* ===== Board header ===== */
+  .b-head{
+    display:grid;grid-template-columns:1fr auto;gap:24px;align-items:end;
+    border-bottom:1px solid var(--line);padding-bottom:28px;margin-bottom:48px;
+  }
+  .b-eyebrow{display:inline-flex;align-items:center;gap:10px;color:var(--coral-soft);font-weight:700;font-size:12px;letter-spacing:.24em;text-transform:uppercase}
+  .b-eyebrow .bar{width:36px;height:2px;background:var(--coral);border-radius:2px}
+  .b-title{font-size:clamp(36px,5vw,64px);font-weight:900;line-height:.96;letter-spacing:-.02em;margin:14px 0 8px}
+  .b-title .light{color:rgba(255,255,255,.42);font-weight:800}
+  .b-sub{color:rgba(255,255,255,.7);font-size:16px;max-width:680px;line-height:1.55}
+  .b-meta{display:grid;gap:8px;text-align:right;font-size:13px;color:rgba(255,255,255,.6)}
+  .b-meta b{display:block;color:#fff;font-weight:800;letter-spacing:.05em;font-size:13px;margin-bottom:4px}
+
+  .pillset{display:flex;gap:8px;margin-top:22px;flex-wrap:wrap}
+  .pill{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:7px 14px;border-radius:999px;
+    background:rgba(127,234,255,.08);border:1px solid rgba(127,234,255,.22);
+    color:var(--aqua-glow);font-weight:700;font-size:12px;letter-spacing:.06em;text-transform:uppercase
+  }
+  .pill.coral{background:rgba(255,106,92,.12);border-color:rgba(255,106,92,.35);color:var(--coral-2)}
+  .pill.flat{background:rgba(255,255,255,.05);border-color:var(--line);color:rgba(255,255,255,.78)}
+
+  /* ===== Section frames ===== */
+  .section{margin:64px 0}
+  .section-head{display:flex;align-items:end;justify-content:space-between;gap:24px;margin-bottom:24px;flex-wrap:wrap}
+  .section-head h2{font-size:28px;font-weight:900;letter-spacing:-.01em;margin:8px 0 0}
+  .section-head .h2-sub{color:rgba(255,255,255,.6);font-size:14px;line-height:1.5;max-width:540px;margin-top:6px}
+  .section-head .right-meta{font-size:12px;color:rgba(255,255,255,.5);letter-spacing:.06em;text-transform:uppercase}
+
+  /* ===== Frame card (macet-frame) ===== */
+  .frame{
+    border:1px solid var(--line);border-radius:24px;overflow:hidden;
+    background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(255,255,255,0));
+    position:relative;
+  }
+  .frame-bar{
+    display:flex;align-items:center;gap:10px;
+    padding:12px 18px;border-bottom:1px solid var(--line);
+    background:rgba(255,255,255,.02);
+    font-size:12px;letter-spacing:.04em;color:rgba(255,255,255,.7)
+  }
+  .frame-dot{width:10px;height:10px;border-radius:50%;background:#3a4a5a}
+  .frame-dot.r{background:#ff6a5c}.frame-dot.y{background:#ffc857}.frame-dot.g{background:#7be38a}
+  .frame-url{margin-left:14px;padding:5px 12px;background:rgba(255,255,255,.05);border-radius:8px;font-family:ui-monospace,Consolas,monospace;font-size:11px;color:rgba(255,255,255,.7)}
+  .frame-tag{margin-left:auto;font-size:11px;color:var(--coral-soft);letter-spacing:.18em;text-transform:uppercase;font-weight:700}
+  .frame-body{position:relative}
+
+  /* ============== TOKENS PANEL ============== */
+  .tokens-grid{
+    display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:18px;
+  }
+  .panel{
+    border:1px solid var(--line);border-radius:20px;padding:22px;
+    background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.005))
+  }
+  .panel h3{font-size:14px;letter-spacing:.18em;text-transform:uppercase;color:var(--coral-soft);margin:0 0 18px}
+  .swatches{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+  .sw{
+    border-radius:12px;height:88px;display:flex;flex-direction:column;justify-content:flex-end;
+    padding:10px;font-weight:800;font-size:11px;letter-spacing:.04em;
+    border:1px solid rgba(255,255,255,.08);
+  }
+  .sw small{display:block;font-weight:600;font-size:10px;opacity:.7;margin-top:2px;letter-spacing:.04em}
+  .sw.abyss{background:#020a12;color:#fff}
+  .sw.deep{background:#06121b;color:#fff}
+  .sw.ink{background:#0a1822;color:#fff}
+  .sw.teal{background:#0d3a4d;color:#fff}
+  .sw.teal2{background:#11536b;color:#fff}
+  .sw.aqua{background:#3ec7e0;color:#04212a}
+  .sw.aquaglow{background:#7feaff;color:#04212a}
+  .sw.coral{background:#ff6a5c;color:#3b0d08}
+  .sw.coral2{background:#ff8a76;color:#3b0d08}
+  .sw.soft{background:#ffb7ad;color:#3b0d08}
+  .sw.sand{background:#f6efe6;color:#1b110a}
+  .sw.paper{background:#fff7ec;color:#1b110a}
+
+  .typo-row{display:grid;grid-template-columns:90px 1fr;gap:14px;align-items:center;padding:12px 0;border-bottom:1px dashed rgba(255,255,255,.08)}
+  .typo-row:last-child{border-bottom:0}
+  .typo-row .label{font-size:11px;color:rgba(255,255,255,.55);letter-spacing:.1em;text-transform:uppercase}
+  .typo-row .sample{font-family:'Manrope';color:#fff;line-height:1}
+  .t-display{font-size:42px;font-weight:900;letter-spacing:-.02em}
+  .t-h2{font-size:28px;font-weight:900}
+  .t-h3{font-size:18px;font-weight:800}
+  .t-body{font-size:14px;font-weight:500;color:rgba(255,255,255,.78)}
+  .t-eyebrow{font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--coral-soft)}
+  .t-caveat{font-family:'Caveat',cursive;font-size:28px;font-weight:700;color:var(--aqua-glow)}
+
+  .spacing-bars{display:grid;gap:10px}
+  .spacing-row{display:grid;grid-template-columns:60px 1fr 60px;gap:12px;align-items:center;font-size:11px;color:rgba(255,255,255,.6);font-family:ui-monospace,Consolas,monospace}
+  .spacing-row .bar-track{height:8px;background:rgba(127,234,255,.08);border-radius:4px;overflow:hidden}
+  .spacing-row .bar{height:100%;background:linear-gradient(90deg,var(--aqua),var(--aqua-glow))}
+
+  /* ============== HERO MOCKUP ============== */
+  .hero-mock{
+    position:relative;min-height:680px;
+    background:linear-gradient(180deg,#062338 0%, #021420 60%, #010a12 100%);
+    isolation:isolate;overflow:hidden;
+  }
+  .hero-mock .sky{position:absolute;inset:0;background:radial-gradient(120% 70% at 50% 0%, rgba(160,210,225,.55) 0%, rgba(78,128,158,.35) 35%, transparent 70%),linear-gradient(180deg,#7fb6cf 0%, #4a86a8 30%, #1d4862 55%, #0a2233 100%);}
+  .hero-mock .sea{position:absolute;left:0;right:0;bottom:0;height:62%;background:radial-gradient(80% 40% at 50% 0%, rgba(45,90,130,.4), transparent 70%),linear-gradient(180deg, rgba(20,50,90,0) 0%, rgba(15,40,80,.35) 30%, rgba(10,30,60,.6) 100%);}
+  .hero-mock .cups{
+    position:absolute;left:0;right:0;bottom:0;height:62%;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='90' height='60' viewBox='0 0 90 60'><defs><linearGradient id='c' x1='0' y1='0' x2='0' y2='1'><stop offset='0' stop-color='%237fc3e0'/><stop offset='.6' stop-color='%232a6c95'/><stop offset='1' stop-color='%23103048'/></linearGradient></defs><g><path d='M5,10 q3-3 8-3 q5,0 8,3 l-1,18 q-2,2 -7,2 q-5,0 -7-2 z' fill='url(%23c)' opacity='.95'/><path d='M30,18 q3-3 8-3 q5,0 8,3 l-1,16 q-2,2 -7,2 q-5,0 -7-2 z' fill='url(%23c)' opacity='.85'/><path d='M55,8 q3-3 8-3 q5,0 8,3 l-1,18 q-2,2 -7,2 q-5,0 -7-2 z' fill='url(%23c)' opacity='.9'/><path d='M70,30 q3-3 8-3 q5,0 8,3 l-1,16 q-2,2 -7,2 q-5,0 -7-2 z' fill='url(%23c)' opacity='.8'/><path d='M15,38 q3-3 8-3 q5,0 8,3 l-1,16 q-2,2 -7,2 q-5,0 -7-2 z' fill='url(%23c)' opacity='.78'/><path d='M40,42 q3-3 8-3 q5,0 8,3 l-1,14 q-2,2 -7,2 q-5,0 -7-2 z' fill='url(%23c)' opacity='.7'/></g></svg>");
+    background-repeat:repeat;background-size:90px 60px;
+    mask-image:linear-gradient(180deg, transparent 0%, #000 8%, #000 100%);
+    -webkit-mask-image:linear-gradient(180deg, transparent 0%, #000 8%, #000 100%);
+  }
+  .hero-mock .haze{position:absolute;left:0;right:0;bottom:50%;height:30%;background:linear-gradient(180deg, rgba(255,255,255,0), rgba(160,210,225,.18) 60%, rgba(20,60,90,0));}
+
+  .hero-mock .nav-mock{
+    position:absolute;left:0;right:0;top:0;z-index:10;padding:18px 36px;
+    display:flex;align-items:center;justify-content:space-between;
+    backdrop-filter:blur(10px);background:linear-gradient(180deg,rgba(2,10,18,.6),rgba(2,10,18,.0));
+    border-bottom:1px solid rgba(255,255,255,.05);
+  }
+  .nm-brand{display:flex;align-items:center;gap:10px;font-weight:900;font-size:11px;letter-spacing:.06em}
+  .nm-brand .mark{width:28px;height:28px;border-radius:8px;background:linear-gradient(145deg,#fff,#e9f5fa);display:grid;place-items:center}
+  .nm-brand small{display:block;font-weight:600;font-size:9px;color:rgba(255,255,255,.6);letter-spacing:.16em;margin-top:2px}
+  .nm-menu{display:flex;gap:22px;font-size:12px;font-weight:600;color:rgba(255,255,255,.85)}
+  .nm-cta{padding:9px 16px;border-radius:999px;background:linear-gradient(90deg,#ff6a5c,#ff8c75);color:#fff;font-weight:800;font-size:12px;letter-spacing:.02em;display:inline-flex;align-items:center;gap:8px}
+
+  .hero-mock .top-line{position:absolute;top:74px;left:36px;right:36px;display:flex;justify-content:space-between;color:#fff;font-weight:800;font-size:12px;letter-spacing:.06em;z-index:6}
+  .hero-mock .top-line .left{display:flex;align-items:center;gap:10px}
+  .hex-mock{width:24px;height:28px;background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 34' fill='white'><polygon points='15,2 28,9 28,25 15,32 2,25 2,9'/></svg>") no-repeat center/contain}
+
+  .hero-mock .content{
+    position:relative;z-index:6;padding:160px 36px 36px;display:grid;gap:18px;
+  }
+  .hero-mock .tag{font-size:18px;font-weight:600;color:rgba(255,255,255,.92);text-shadow:0 4px 14px rgba(0,0,0,.4)}
+  .hero-mock h1{
+    font-weight:900;font-size:96px;line-height:.88;letter-spacing:-.02em;
+    text-shadow:0 8px 30px rgba(0,0,0,.4);margin:0;color:#fff;max-width:780px;
+  }
+  .hero-mock h1 .light{color:rgba(255,255,255,.45);font-weight:800}
+  .hero-mock .ctas{display:flex;gap:12px;margin-top:24px;flex-wrap:wrap}
+  .h-cta{padding:14px 22px;border-radius:999px;background:linear-gradient(90deg,#ff6a5c,#ff8c75);color:#fff;font-weight:800;font-size:14px;display:inline-flex;align-items:center;gap:10px;box-shadow:0 14px 30px rgba(255,106,92,.4)}
+  .h-cta.ghost{background:transparent;border:1.5px solid rgba(255,255,255,.4);box-shadow:none}
+
+  .hero-mock .bottomline{
+    position:absolute;left:36px;right:36px;bottom:18px;
+    display:flex;align-items:center;justify-content:space-between;
+    padding-top:18px;border-top:1px solid rgba(255,255,255,.12);z-index:6;color:rgba(255,255,255,.65);font-size:12px;letter-spacing:.05em
+  }
+  .bbdo-mock::before{content:"BBDO";display:inline-block;background:#fff;color:#000;padding:2px 7px;border-radius:5px;font-weight:900;letter-spacing:0;margin-right:8px;font-size:11px}
+  .slash-mock{color:#ff6a5c;font-weight:900;letter-spacing:.05em}
+
+  .hero-mock .legal{position:absolute;bottom:0;left:0;right:0;text-align:center;color:rgba(255,255,255,.5);font-size:10px;padding:6px 28px 8px;letter-spacing:.04em;z-index:6}
+
+  /* Hero KV elements */
+  .h-buoy{
+    position:absolute;left:7%;bottom:14%;width:200px;z-index:3;
+    filter:drop-shadow(0 24px 32px rgba(0,0,0,.55));
+  }
+  .h-whale{position:absolute;right:33%;bottom:50%;width:160px;z-index:2;opacity:.78;filter:drop-shadow(0 8px 18px rgba(0,0,0,.5))}
+  .h-gull{position:absolute;width:36px;height:16px;z-index:3}
+  .h-eco-badge{
+    position:absolute;right:5%;bottom:14%;
+    width:108px;height:108px;border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, #ff8a76, #ff5040 70%);
+    display:grid;place-items:center;text-align:center;
+    color:#fff;font-weight:900;letter-spacing:.04em;font-size:13px;line-height:1.05;
+    box-shadow:0 14px 30px rgba(255,80,64,.55), inset 0 0 0 4px rgba(255,255,255,.18);
+    transform:rotate(-8deg);z-index:5;
+  }
+  .h-eco-badge::before{content:"";position:absolute;inset:7px;border-radius:50%;border:2px dashed rgba(255,255,255,.55)}
+
+  /* Annotation pins on the hero mockup */
+  .pin{
+    position:absolute;z-index:20;
+    background:#fff;color:#0a1828;
+    font-weight:800;font-size:11px;letter-spacing:.04em;
+    padding:6px 10px;border-radius:8px;
+    box-shadow:0 8px 20px rgba(0,0,0,.4);
+    display:flex;align-items:center;gap:8px;
+  }
+  .pin .num{
+    width:18px;height:18px;border-radius:50%;background:var(--coral);color:#fff;display:grid;place-items:center;font-size:10px;font-weight:900
+  }
+  .pin small{display:block;font-weight:600;font-size:10px;color:rgba(0,0,0,.55);letter-spacing:0;text-transform:none;margin-top:1px}
+
+  /* ========= Section row mockups ========= */
+  .strip{
+    display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:24px;
+  }
+  .strip-card{
+    border:1px solid var(--line);border-radius:18px;overflow:hidden;
+    background:linear-gradient(180deg,#03192a,#021320);
+  }
+  .strip-card .strip-head{padding:14px 18px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;font-size:12px;color:rgba(255,255,255,.6);letter-spacing:.06em}
+  .strip-card .strip-head b{color:#fff;font-weight:800;letter-spacing:0;font-size:13px}
+  .strip-card .strip-body{padding:24px}
+
+  /* About mock */
+  .about-mock{display:grid;grid-template-columns:1.1fr 1fr;gap:24px;align-items:center}
+  .about-mock .eyebrow-mock{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--coral-soft);font-weight:700;display:flex;align-items:center;gap:10px;margin-bottom:8px}
+  .about-mock .eyebrow-mock::before{content:"";width:24px;height:2px;background:var(--coral);border-radius:2px}
+  .about-mock h3{font-size:30px;font-weight:900;letter-spacing:-.01em;margin:0 0 10px;line-height:1.04}
+  .about-mock h3 .accent{color:var(--coral)}
+  .about-mock p.lead{color:rgba(255,255,255,.78);font-size:13.5px;line-height:1.55;max-width:420px}
+  .about-bullets-mock{display:grid;gap:8px;margin-top:14px}
+  .ab-row{
+    display:grid;grid-template-columns:30px 1fr;gap:10px;align-items:start;
+    padding:10px 12px;border-radius:10px;
+    background:rgba(255,255,255,.04);border:1px solid var(--line);
+  }
+  .ab-row .ic{width:30px;height:30px;border-radius:8px;background:rgba(127,234,255,.15);border:1px solid rgba(127,234,255,.3);display:grid;place-items:center;color:var(--aqua-glow);font-size:14px}
+  .ab-row b{font-weight:800;font-size:13px}
+  .ab-row p{font-size:11.5px;line-height:1.45;color:rgba(255,255,255,.7);margin:2px 0 0}
+
+  .about-art-mock{
+    position:relative;height:280px;border-radius:20px;overflow:hidden;
+    background:radial-gradient(60% 70% at 50% 30%, rgba(127,234,255,.16), transparent 60%),linear-gradient(135deg,#0a3a52 0%,#021728 100%);
+    border:1px solid rgba(127,234,255,.18);
+  }
+  .about-art-mock .float{position:absolute;font-size:38px;filter:drop-shadow(0 6px 14px rgba(0,0,0,.4))}
+  .about-art-mock .badge{
+    position:absolute;left:14px;right:14px;bottom:14px;background:rgba(0,0,0,.5);backdrop-filter:blur(8px);
+    border-radius:14px;padding:12px 14px;border:1px solid rgba(255,255,255,.1);
+  }
+  .about-art-mock .badge b{color:var(--aqua-glow);font-weight:800;font-size:10px;letter-spacing:.08em;text-transform:uppercase}
+  .about-art-mock .badge p{margin:4px 0 0;font-size:11px;line-height:1.45;color:rgba(255,255,255,.85)}
+
+  /* Pollution cards mock */
+  .poll-mock-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:16px;
+    margin-top:16px;
+  }
+  .poll-card-mock{
+    border-radius:20px;
+    padding:16px;
+    background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.012));
+    border:1px solid var(--line);
+    display:grid;
+    grid-template-columns:128px 1fr;
+    gap:16px;
+    align-items:start;
+    overflow:visible;
+  }
+  .poll-card-mock .mas-wrap{
+    position:relative;
+    width:128px;
+    padding-top:30px;
+  }
+  .poll-card-mock .name{
+    position:absolute;
+    top:0;
+    left:6px;
+    z-index:2;
+    max-width:116px;
+    padding:7px 10px;
+    border-radius:14px 14px 14px 4px;
+    background:rgba(255,255,255,.94);
+    color:var(--ink);
+    font-weight:900;
+    font-size:8.5px;
+    line-height:1.12;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    box-shadow:0 10px 22px rgba(0,0,0,.28);
+  }
+  .poll-card-mock .name::after{
+    content:"";
+    position:absolute;
+    left:16px;
+    bottom:-7px;
+    width:14px;
+    height:14px;
+    background:rgba(255,255,255,.94);
+    transform:rotate(45deg);
+    border-radius:2px;
+    z-index:-1;
+  }
+  .poll-card-mock .mas{
+    width:128px;
+    height:128px;
+    border-radius:20px;
+    background:linear-gradient(145deg,#0a3a52,#021728);
+    display:grid;
+    place-items:center;
+    font-size:48px;
+    border:1px solid rgba(255,255,255,.08);
+    overflow:hidden;
+    box-shadow:0 16px 34px rgba(0,0,0,.24);
+  }
+  .poll-card-mock .mas img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position:center;
+    display:block;
+  }
+  .poll-card-mock .mas-wrap + div{
+    padding-top:30px;
+  }
+  .poll-card-mock .mas-wrap + div h4{
+    margin:0 0 8px;
+    font-size:15px;
+    font-weight:800;
+  }
+  .poll-card-mock .meta-row{
+    font-size:10.5px;
+    line-height:1.42;
+    color:rgba(255,255,255,.72);
+    margin-top:6px;
+  }
+  .poll-card-mock .meta-row b{
+    color:var(--aqua-glow);
+    font-weight:700;
+    font-size:9px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    display:block;
+    margin-bottom:2px;
+  }
+
+  /* Chain */
+  .chain-mock{
+    margin-top:18px;padding:18px;border-radius:18px;
+    background:linear-gradient(135deg,rgba(127,234,255,.06),rgba(255,106,92,.04));
+    border:1px solid rgba(127,234,255,.14);
+  }
+  .chain-line{display:flex;flex-wrap:wrap;gap:6px;align-items:center;justify-content:center;margin-top:12px}
+  .chain-step-mock{
+    display:flex;flex-direction:column;align-items:center;gap:4px;
+    padding:8px 10px;border-radius:10px;
+    background:rgba(255,255,255,.04);border:1px solid var(--line);
+    font-size:10px;font-weight:700;color:#fff;text-align:center;min-width:60px
+  }
+  .chain-step-mock .ic{font-size:16px}
+  .chain-arrow-mock{color:var(--coral);font-weight:900;font-size:14px}
+  .chain-step-mock.alert{background:rgba(255,106,92,.08);border-color:rgba(255,106,92,.4)}
+
+  /* Quest teaser mock */
+  .qt-mock{display:grid;grid-template-columns:1fr 1.1fr;gap:24px;align-items:center}
+  .phone-mock{
+    position:relative;width:200px;aspect-ratio:9/19;
+    border-radius:30px;border:6px solid #0a1322;
+    background:linear-gradient(145deg,#0a1828,#020a12);
+    box-shadow:0 30px 60px rgba(0,0,0,.5);overflow:hidden;
+    transform:rotate(-4deg);justify-self:center;
+  }
+  .phone-mock .scene{position:absolute;inset:0;background:radial-gradient(80% 40% at 50% 0%, rgba(127,234,255,.4), transparent 65%),linear-gradient(180deg,#0e6e94 0%, #073452 60%, #021728 100%)}
+  .phone-mock .notch{position:absolute;left:50%;top:6px;transform:translateX(-50%);width:60px;height:14px;background:#020a12;border-radius:10px;z-index:5}
+  .phone-mock .hint{position:absolute;left:10px;right:10px;top:30px;padding:8px 10px;border-radius:10px;background:rgba(0,0,0,.5);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.14);color:#fff;font-size:9px;text-align:center;font-weight:600;z-index:5}
+  .phone-mock .trash{position:absolute;font-size:18px}
+  .phone-mock .bubble{position:absolute;left:10px;right:10px;bottom:60px;background:#fff;color:#0a1828;border-radius:11px;padding:8px 10px;font-size:9px;font-weight:700;text-align:center;z-index:6;box-shadow:0 8px 18px rgba(0,0,0,.4)}
+  .phone-mock .crab{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);font-size:36px;z-index:7}
+
+  .qt-features-mock{display:grid;gap:8px;margin-top:14px}
+  .qt-feat-mock{
+    display:grid;grid-template-columns:28px 1fr;gap:10px;align-items:start;
+    padding:10px 12px;border-radius:11px;
+    background:rgba(255,255,255,.04);border:1px solid var(--line);
+  }
+  .qt-feat-mock .qfn{width:28px;height:28px;border-radius:8px;background:linear-gradient(145deg,var(--coral),#ff8c75);display:grid;place-items:center;color:#fff;font-size:11px;font-weight:900}
+  .qt-feat-mock b{font-weight:800;font-size:12px}
+  .qt-feat-mock p{margin:2px 0 0;font-size:10.5px;line-height:1.45;color:rgba(255,255,255,.72)}
+
+  /* 4R tabs mock */
+  .tabs-mock{display:flex;gap:6px;margin-top:14px;flex-wrap:wrap}
+  .tab-mock{padding:8px 14px;border-radius:999px;background:rgba(255,255,255,.04);border:1px solid var(--line);color:rgba(255,255,255,.7);font-weight:700;font-size:11px}
+  .tab-mock.active{background:var(--coral);color:#fff;border-color:transparent;box-shadow:0 8px 18px rgba(255,106,92,.4)}
+  .tip-grid-mock{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:14px}
+  .tip-mock{padding:11px 13px;border-radius:12px;background:rgba(255,255,255,.04);border:1px solid var(--line);display:grid;grid-template-columns:22px 1fr;gap:10px;font-size:11.5px;line-height:1.45;color:rgba(255,255,255,.85)}
+  .tip-mock .check{width:20px;height:20px;border-radius:6px;background:rgba(127,234,255,.15);border:1px solid rgba(127,234,255,.35);display:grid;place-items:center;color:var(--aqua-glow);font-size:11px;font-weight:900}
+
+  /* Partners mock */
+  .partner-mock{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:14px}
+  .partner-cell{height:60px;display:grid;place-items:center;background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:12px;color:rgba(255,255,255,.55);font-weight:800;font-size:11px;letter-spacing:.06em}
+
+  /* ========= Eco-quest preview ========= */
+  .eq-mock{padding:32px 36px;background:linear-gradient(180deg,#062338,#021420);position:relative;overflow:hidden}
+  .eq-mock .crumb{display:flex;gap:6px;align-items:center;color:rgba(255,255,255,.55);font-size:11px;margin-bottom:8px}
+  .eq-mock h1{font-size:54px;font-weight:900;line-height:.96;letter-spacing:-.02em;margin:6px 0 10px}
+  .eq-mock h1 .light{color:rgba(255,255,255,.45);font-weight:800}
+  .eq-mock p.lead{font-size:13px;color:rgba(255,255,255,.85);line-height:1.55;max-width:580px;margin:0 0 16px}
+  .eq-meta{display:flex;gap:24px;color:rgba(255,255,255,.7);font-size:11px}
+  .eq-meta b{display:block;color:#fff;font-size:18px;font-weight:900;margin-bottom:2px}
+
+  .eq-steps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px}
+  .eq-s-card{padding:14px;border-radius:13px;background:rgba(255,255,255,.04);border:1px solid var(--line)}
+  .eq-s-card .num{width:30px;height:30px;border-radius:9px;background:linear-gradient(145deg,#ff6a5c,#ff8c75);display:grid;place-items:center;color:#fff;font-weight:900;font-size:12px;box-shadow:0 6px 14px rgba(255,106,92,.4)}
+  .eq-s-card h4{font-size:12px;font-weight:800;margin:8px 0 4px}
+  .eq-s-card p{font-size:10.5px;line-height:1.45;color:rgba(255,255,255,.7);margin:0}
+
+  /* Map */
+  .eq-map{
+    margin-top:20px;border-radius:18px;
+    background:radial-gradient(70% 50% at 50% 50%, rgba(127,234,255,.15), transparent 70%),
+               linear-gradient(135deg,#0a3a52 0%,#062338 100%);
+    border:1px solid rgba(127,234,255,.2);height:320px;position:relative;overflow:hidden
+  }
+  .eq-map svg.routes{position:absolute;inset:0;width:100%;height:100%}
+  .map-pin{
+    position:absolute;width:30px;height:30px;border-radius:50%;
+    background:linear-gradient(145deg,#ff6a5c,#ff8c75);
+    border:3px solid #fff;
+    display:grid;place-items:center;color:#fff;font-weight:900;font-size:12px;
+    box-shadow:0 8px 20px rgba(255,106,92,.5);
+    transform:translate(-50%,-50%);
+  }
+  .map-label{
+    position:absolute;background:rgba(0,0,0,.55);backdrop-filter:blur(6px);
+    color:#fff;font-size:10px;font-weight:700;padding:3px 7px;border-radius:6px;
+    transform:translate(-50%,-180%);white-space:nowrap;letter-spacing:.04em;
+    border:1px solid rgba(255,255,255,.1);
+  }
+
+  /* Mascot strip */
+  .mascot-strip{
+    margin-top:22px;display:grid;grid-template-columns:repeat(10,1fr);gap:8px;
+  }
+  .mas-cell{
+    aspect-ratio:1/1.1;border-radius:14px;
+    background:linear-gradient(145deg,#0a3a52,#021728);
+    border:1px solid rgba(127,234,255,.18);
+    position:relative;overflow:hidden;display:grid;grid-template-rows:1fr auto;
+  }
+  .mas-cell .picture{display:grid;place-items:center;font-size:28px;padding-top:8px}
+  .mas-cell .name{padding:6px 4px;text-align:center;background:rgba(0,0,0,.35);font-size:9px;font-weight:800;color:#fff;letter-spacing:.04em;border-top:1px solid rgba(255,255,255,.06)}
+  .mas-cell .letter{position:absolute;top:6px;left:6px;width:18px;height:18px;border-radius:50%;background:var(--coral);color:#fff;display:grid;place-items:center;font-size:10px;font-weight:900}
+
+  /* Final code reveal */
+  .final-code{
+    margin-top:20px;padding:24px;border-radius:18px;text-align:center;
+    background:radial-gradient(60% 60% at 50% 0%, rgba(255,106,92,.18), transparent 70%),
+               linear-gradient(135deg,rgba(127,234,255,.05),rgba(255,106,92,.04));
+    border:1px solid rgba(255,106,92,.3);
+  }
+  .final-code .e{font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--coral-soft)}
+  .final-code .word{display:flex;gap:6px;justify-content:center;margin-top:14px;flex-wrap:wrap}
+  .letter-tile{
+    width:42px;height:50px;border-radius:9px;
+    background:linear-gradient(180deg,#fff,#f6f2eb);color:#0a1828;
+    display:grid;place-items:center;font-weight:900;font-size:22px;letter-spacing:0;
+    box-shadow:0 8px 20px rgba(255,255,255,.18);
+  }
+  .letter-tile.empty{background:rgba(255,255,255,.06);color:rgba(255,255,255,.3);box-shadow:none;border:1px dashed rgba(255,255,255,.18)}
+
+  /* Rewards page mocks */
+  .rew-mocks{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:18px}
+  .rew-state{
+    border:1px solid var(--line);border-radius:20px;overflow:hidden;
+    background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(255,255,255,0));
+  }
+  .rew-state .state-bar{padding:10px 16px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;font-size:11px;letter-spacing:.06em;color:rgba(255,255,255,.6);text-transform:uppercase}
+  .rew-state .state-bar b{font-weight:800;color:#fff;letter-spacing:.04em}
+
+  .gate-mock{
+    padding:36px 32px;text-align:center;
+    background:radial-gradient(80% 80% at 50% 30%, rgba(127,234,255,.18), transparent 60%),
+               linear-gradient(180deg,#062338 0%, #021420 100%);
+    min-height:430px;display:grid;align-content:center;
+  }
+  .gate-mock .lock{
+    width:64px;height:64px;border-radius:18px;margin:0 auto 16px;
+    background:linear-gradient(145deg,#ff6a5c,#ff8c75);
+    display:grid;place-items:center;color:#fff;
+    box-shadow:0 14px 30px rgba(255,106,92,.45);
+  }
+  .gate-mock h3{font-size:24px;font-weight:900;margin:0 0 8px}
+  .gate-mock p{font-size:13px;color:rgba(255,255,255,.78);max-width:380px;margin:0 auto 18px;line-height:1.55}
+  .gate-input{
+    margin:18px auto 8px;width:80%;display:flex;gap:8px;background:rgba(0,0,0,.3);
+    padding:6px;border-radius:13px;border:1px solid rgba(255,255,255,.12);
+  }
+  .gate-input input{flex:1;background:transparent;border:0;color:#fff;font-size:13px;padding:8px 10px;outline:none;font-family:inherit}
+  .gate-input button{padding:9px 16px;border-radius:9px;background:linear-gradient(90deg,var(--coral),#ff8c75);color:#fff;font-weight:800;font-size:12px;border:0}
+  .gate-mock .hint{margin-top:12px;font-size:11px;color:rgba(255,255,255,.5)}
+
+  .rew-unlocked{
+    padding:30px 26px;
+    background:radial-gradient(60% 50% at 50% 0%, rgba(127,234,255,.1), transparent 65%),
+               linear-gradient(180deg,#021420,#03192a);
+  }
+  .rew-unlocked .top{text-align:center;margin-bottom:18px}
+  .rew-unlocked .top .e{font-size:11px;color:var(--coral-soft);letter-spacing:.2em;text-transform:uppercase;font-weight:700}
+  .rew-unlocked h3{font-size:24px;font-weight:900;margin:8px 0 6px}
+  .rew-unlocked .top p{font-size:12px;color:rgba(255,255,255,.7);margin:0}
+  .rew-grid-mock{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+  .rew-tile{
+    border-radius:14px;padding:14px;
+    background:linear-gradient(145deg,rgba(127,234,255,.08),rgba(255,255,255,.02));
+    border:1px solid rgba(127,234,255,.18);
+    display:grid;grid-template-rows:auto 1fr auto;gap:8px;
+  }
+  .rew-tile .ic{width:34px;height:34px;border-radius:10px;background:linear-gradient(145deg,var(--coral),#ff8c75);display:grid;place-items:center;color:#fff;font-size:16px}
+  .rew-tile h5{margin:0;font-size:12px;font-weight:800}
+  .rew-tile p{margin:0;font-size:10.5px;line-height:1.45;color:rgba(255,255,255,.7)}
+  .rew-tile .download{font-size:10.5px;font-weight:800;color:var(--aqua-glow);letter-spacing:.06em;text-transform:uppercase;margin-top:4px}
+
+  /* Components inventory */
+  .comp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:18px}
+  .comp-card{
+    border-radius:18px;padding:22px;border:1px solid var(--line);
+    background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.005))
+  }
+  .comp-label{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.5);font-weight:700}
+  .comp-card h4{margin:6px 0 16px;font-size:14px;font-weight:800}
+  .comp-card .demo{display:flex;flex-wrap:wrap;align-items:center;gap:10px;min-height:60px}
+  .comp-spec{margin-top:14px;font-size:11px;color:rgba(255,255,255,.55);line-height:1.55;font-family:ui-monospace,Consolas,monospace}
+
+  /* Buttons demo */
+  .btn-coral{padding:10px 16px;border-radius:999px;background:linear-gradient(90deg,var(--coral),#ff8c75);color:#fff;font-weight:800;font-size:12px;display:inline-flex;align-items:center;gap:8px;box-shadow:0 8px 18px rgba(255,106,92,.4);border:0}
+  .btn-ghost{padding:10px 16px;border-radius:999px;background:transparent;border:1.5px solid rgba(255,255,255,.35);color:#fff;font-weight:700;font-size:12px}
+  .chip-demo{display:inline-flex;align-items:center;padding:6px 12px;border-radius:999px;background:linear-gradient(90deg,#ff6a5c,#ff9a78);color:#fff;font-weight:800;font-size:11px;letter-spacing:.04em}
+  .chip-demo.tag{background:rgba(255,106,92,.18);color:var(--coral-2);border:1px solid rgba(255,106,92,.35)}
+
+  .input-demo{padding:8px 12px;border-radius:9px;background:rgba(255,255,255,.05);border:1px solid var(--line);color:rgba(255,255,255,.7);font-size:12px;font-family:inherit}
+
+  /* Mobile preview row */
+  .mobile-row{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:18px}
+  .mob-frame{
+    border:1px solid var(--line);border-radius:30px;padding:8px;
+    background:#020a12;justify-self:center;width:240px;aspect-ratio:9/19.5;
+    position:relative;overflow:hidden;
+  }
+  .mob-frame .mob-screen{width:100%;height:100%;border-radius:24px;overflow:hidden;position:relative}
+  .mob-frame .mob-notch{position:absolute;left:50%;top:14px;transform:translateX(-50%);width:80px;height:18px;background:#020a12;border-radius:12px;z-index:9}
+  .mob-frame .mob-screen.s1{background:linear-gradient(180deg,#062338 0%, #021420 60%, #010a12 100%);}
+  .mob-screen .mob-content{padding:54px 16px 16px;color:#fff}
+  .mob-screen h6{font-size:32px;font-weight:900;line-height:.94;letter-spacing:-.02em;margin:0 0 8px}
+  .mob-screen h6 .light{color:rgba(255,255,255,.45)}
+  .mob-screen p{font-size:11px;line-height:1.5;color:rgba(255,255,255,.78);margin:0 0 12px}
+  .mob-screen .mcta{display:inline-block;padding:8px 14px;border-radius:999px;background:linear-gradient(90deg,#ff6a5c,#ff8c75);color:#fff;font-weight:800;font-size:11px;letter-spacing:.04em}
+
+  /* Footer */
+  .b-foot{
+    margin-top:60px;padding-top:30px;border-top:1px solid var(--line);
+    display:flex;justify-content:space-between;color:rgba(255,255,255,.45);font-size:12px;flex-wrap:wrap;gap:8px;
+  }
+
+  @media (max-width:1100px){
+    .tokens-grid{grid-template-columns:1fr}
+    .strip{grid-template-columns:1fr}
+    .about-mock,.qt-mock{grid-template-columns:1fr}
+    .eq-steps-grid{grid-template-columns:repeat(2,1fr)}
+    .mascot-strip{grid-template-columns:repeat(5,1fr)}
+    .rew-mocks{grid-template-columns:1fr}
+    .comp-grid{grid-template-columns:1fr 1fr}
+    .mobile-row{grid-template-columns:1fr}
+    .hero-mock h1{font-size:60px}
+  }
+</style>
+</head>
+<body>
+
+<div class="board">
+
+  <!-- ============ Board header ============ -->
+  <div class="b-head">
+    <div>
+      <div class="b-eyebrow"><span class="bar"></span> Дизайн-борд · v1</div>
+      <h1 class="b-title">С океаном<br/><span class="light">начистоту</span></h1>
+      <p class="b-sub">
+        Социальная экологическая инициатива Москвариума и BBDO. Дизайн-борд показывает
+        ключевые экраны сайта, дизайн-токены и компоненты. Старт — 8 июня, во Всемирный
+        день океана.
+      </p>
+      <div class="pillset">
+        <span class="pill">3 страницы</span>
+        <span class="pill coral">Key visual: буй + кит + чайки</span>
+        <span class="pill">Цветовая система: тёмный океан + коралл</span>
+        <span class="pill flat">Шрифт: Manrope · Caveat</span>
+      </div>
+    </div>
+    <div class="b-meta">
+      <div><b>Заказчик</b>Москвариум</div>
+      <div><b>Креативное агентство</b>BBDO Moscow</div>
+      <div><b>Старт</b>8 июня · День океана</div>
+      <div><b>Аудитория</b>6+ · семьи и подростки</div>
+      <div><b>Формат</b>веб + WebAR-квест</div>
+    </div>
+  </div>
+
+  <!-- ============ TOKENS ============ -->
+  <div class="section">
+    <div class="section-head">
+      <div>
+        <div class="b-eyebrow"><span class="bar"></span> Дизайн-токены</div>
+        <h2>Цвета · типографика · ритм</h2>
+        <p class="h2-sub">Тёмная океанская база (от чернильной abyss до бирюзы), коралловый акцент и кремовый светлый фон. Аква-glow — для подсветки важной микроинформации.</p>
+      </div>
+      <div class="right-meta">3 ramps · 2 шрифта · 6 ширин</div>
+    </div>
+
+    <div class="tokens-grid">
+      <!-- Colors -->
+      <div class="panel">
+        <h3>Палитра</h3>
+        <div style="display:grid;gap:12px">
+          <div>
+            <div class="comp-label" style="margin-bottom:8px">Океан · фон</div>
+            <div class="swatches">
+              <div class="sw abyss">#020A12<small>--abyss</small></div>
+              <div class="sw deep">#06121B<small>--deep</small></div>
+              <div class="sw ink">#0A1822<small>--ink</small></div>
+              <div class="sw teal">#0D3A4D<small>--teal</small></div>
+            </div>
+          </div>
+          <div>
+            <div class="comp-label" style="margin-bottom:8px">Аква · акценты</div>
+            <div class="swatches">
+              <div class="sw teal2">#11536B<small>--teal-2</small></div>
+              <div class="sw aqua">#3EC7E0<small>--aqua</small></div>
+              <div class="sw aquaglow">#7FEAFF<small>--aqua-glow</small></div>
+              <div class="sw sand">#F6EFE6<small>--sand</small></div>
+            </div>
+          </div>
+          <div>
+            <div class="comp-label" style="margin-bottom:8px">Коралл · CTA</div>
+            <div class="swatches">
+              <div class="sw coral">#FF6A5C<small>--coral</small></div>
+              <div class="sw coral2">#FF8A76<small>--coral-2</small></div>
+              <div class="sw soft">#FFB7AD<small>--coral-soft</small></div>
+              <div class="sw paper">#FFF7EC<small>--paper</small></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Typography -->
+      <div class="panel">
+        <h3>Типографика</h3>
+        <div class="typo-row">
+          <div class="label">Display 96/.88</div>
+          <div class="sample t-display">Океан</div>
+        </div>
+        <div class="typo-row">
+          <div class="label">H2 36–72</div>
+          <div class="sample t-h2">Принцип 4R</div>
+        </div>
+        <div class="typo-row">
+          <div class="label">H3 18–24</div>
+          <div class="sample t-h3">Бытовой пластик</div>
+        </div>
+        <div class="typo-row">
+          <div class="label">Lead 17/1.55</div>
+          <div class="sample t-body">Расскажем о загрязнении водоёмов и предложим простые шаги.</div>
+        </div>
+        <div class="typo-row">
+          <div class="label">Eyebrow</div>
+          <div class="sample t-eyebrow">О ПРОЕКТЕ</div>
+        </div>
+        <div class="typo-row">
+          <div class="label">Caveat</div>
+          <div class="sample t-caveat">с океаном начистоту</div>
+        </div>
+        <div style="font-size:11px;color:rgba(255,255,255,.55);margin-top:12px;line-height:1.55">
+          Manrope 400/600/700/800/900 — основной. Caveat — рукописный акцент в hover-состояниях.
+        </div>
+      </div>
+
+      <!-- Spacing -->
+      <div class="panel">
+        <h3>Сетка и ритм</h3>
+        <div class="spacing-bars">
+          <div class="spacing-row"><span>--xs</span><div class="bar-track"><div class="bar" style="width:6%"></div></div><span>8px</span></div>
+          <div class="spacing-row"><span>--sm</span><div class="bar-track"><div class="bar" style="width:14%"></div></div><span>14px</span></div>
+          <div class="spacing-row"><span>--md</span><div class="bar-track"><div class="bar" style="width:24%"></div></div><span>24px</span></div>
+          <div class="spacing-row"><span>--lg</span><div class="bar-track"><div class="bar" style="width:42%"></div></div><span>40px</span></div>
+          <div class="spacing-row"><span>--xl</span><div class="bar-track"><div class="bar" style="width:62%"></div></div><span>60px</span></div>
+          <div class="spacing-row"><span>--2xl</span><div class="bar-track"><div class="bar" style="width:100%"></div></div><span>120px</span></div>
+        </div>
+        <div style="margin-top:18px">
+          <div class="comp-label" style="margin-bottom:8px">Радиусы</div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <div style="width:48px;height:48px;border-radius:8px;background:rgba(127,234,255,.12);border:1px solid rgba(127,234,255,.25);display:grid;place-items:center;font-size:10px;color:var(--aqua-glow);font-weight:800">8</div>
+            <div style="width:48px;height:48px;border-radius:14px;background:rgba(127,234,255,.12);border:1px solid rgba(127,234,255,.25);display:grid;place-items:center;font-size:10px;color:var(--aqua-glow);font-weight:800">14</div>
+            <div style="width:48px;height:48px;border-radius:18px;background:rgba(127,234,255,.12);border:1px solid rgba(127,234,255,.25);display:grid;place-items:center;font-size:10px;color:var(--aqua-glow);font-weight:800">18</div>
+            <div style="width:48px;height:48px;border-radius:22px;background:rgba(127,234,255,.12);border:1px solid rgba(127,234,255,.25);display:grid;place-items:center;font-size:10px;color:var(--aqua-glow);font-weight:800">22</div>
+            <div style="width:48px;height:48px;border-radius:999px;background:rgba(255,106,92,.18);border:1px solid rgba(255,106,92,.35);display:grid;place-items:center;font-size:10px;color:var(--coral-2);font-weight:800">pill</div>
+          </div>
+        </div>
+        <div style="margin-top:18px">
+          <div class="comp-label" style="margin-bottom:8px">Контейнер</div>
+          <div style="font-size:12px;color:rgba(255,255,255,.7);line-height:1.55;font-family:ui-monospace,Consolas,monospace">
+            max-width: 1280px<br/>padding: 0 28px<br/>section: 120px 0
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ HERO MOCKUP ============ -->
+  <div class="section">
+    <div class="section-head">
+      <div>
+        <div class="b-eyebrow"><span class="bar"></span> Главная · index.html</div>
+        <h2>Hero и Key Visual</h2>
+        <p class="h2-sub">Полноэкранный hero: небо, море из стаканчиков, кит выныривает из глубины, чайки, ржавый буй слева, бейдж «Эко-квест». Заголовок-плакат и две CTA.</p>
+      </div>
+      <div class="right-meta">1440 × 1024 · desktop</div>
+    </div>
+
+    <div class="frame">
+      <div class="frame-bar">
+        <span class="frame-dot r"></span><span class="frame-dot y"></span><span class="frame-dot g"></span>
+        <span class="frame-url">moskvarium-ocean.ru / index.html</span>
+        <span class="frame-tag">Hero · Section 1/7</span>
+      </div>
+      <div class="frame-body hero-mock">
+        <div class="sky"></div>
+        <div class="haze"></div>
+        <div class="sea"></div>
+        <div class="cups"></div>
+
+        <!-- Whale -->
+        <svg class="h-whale" viewBox="0 0 240 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs><linearGradient id="wh" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="rgba(255,255,255,.65)"/><stop offset="1" stop-color="rgba(20,40,60,.85)"/></linearGradient></defs>
+          <ellipse cx="60" cy="115" rx="80" ry="6" fill="rgba(255,255,255,.18)"/>
+          <path d="M20,115 Q30,95 50,100 Q60,80 70,95 Q90,80 110,100" stroke="rgba(255,255,255,.65)" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <path d="M60,115 Q40,100 60,70 Q90,30 130,40 Q160,42 175,55 Q195,70 200,95 Q205,118 180,118 L150,118 L130,90 Q110,90 100,115 Z" fill="url(#wh)"/>
+          <path d="M195,82 Q220,70 230,40 Q225,80 210,98" fill="rgba(20,40,60,.7)"/>
+          <circle cx="155" cy="70" r="2" fill="#fff"/>
+        </svg>
+
+        <!-- Gulls -->
+        <svg class="h-gull" style="left:14%;top:18%" viewBox="0 0 60 24" aria-hidden="true">
+          <path d="M2,16 Q12,2 22,12 Q32,2 42,12 Q52,2 58,16" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </svg>
+        <svg class="h-gull" style="left:24%;top:14%;width:28px" viewBox="0 0 60 24" aria-hidden="true">
+          <path d="M2,16 Q12,2 22,12 Q32,2 42,12 Q52,2 58,16" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </svg>
+        <svg class="h-gull" style="left:7%;top:28%;width:24px" viewBox="0 0 60 24" aria-hidden="true">
+          <path d="M2,16 Q12,2 22,12 Q32,2 42,12 Q52,2 58,16" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </svg>
+
+        <!-- Buoy -->
+        <svg class="h-buoy" viewBox="0 0 200 320" aria-hidden="true">
+          <defs>
+            <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff8470"/><stop offset=".5" stop-color="#d4382a"/><stop offset="1" stop-color="#7a1a10"/></linearGradient>
+            <linearGradient id="cage" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e25040"/><stop offset="1" stop-color="#7a1a10"/></linearGradient>
+          </defs>
+          <ellipse cx="100" cy="306" rx="84" ry="6" fill="rgba(0,0,0,.5)"/>
+          <path d="M40,160 Q40,140 50,135 L150,135 Q160,140 160,160 L160,260 Q160,300 100,310 Q40,300 40,260 Z" fill="url(#bg)" stroke="#5d150d" stroke-width="2"/>
+          <path d="M60,200 Q70,210 65,220 Q60,225 55,215 Z" fill="rgba(40,20,12,.5)"/>
+          <path d="M130,250 Q138,260 132,270 Q126,275 122,265 Z" fill="rgba(40,20,12,.5)"/>
+          <path d="M50,180 L150,180" stroke="rgba(0,0,0,.35)" stroke-width="2"/>
+          <path d="M50,250 L150,250" stroke="rgba(0,0,0,.3)" stroke-width="2"/>
+          <ellipse cx="100" cy="135" rx="55" ry="12" fill="#a82c1f" stroke="#5d150d" stroke-width="2"/>
+          <ellipse cx="100" cy="133" rx="50" ry="9" fill="#1a0808"/>
+          <g stroke="url(#cage)" stroke-width="6" fill="none" stroke-linecap="round">
+            <line x1="62" y1="135" x2="62" y2="40"/>
+            <line x1="100" y1="135" x2="100" y2="32"/>
+            <line x1="138" y1="135" x2="138" y2="40"/>
+            <ellipse cx="100" cy="100" rx="42" ry="10"/>
+            <ellipse cx="100" cy="60" rx="38" ry="8"/>
+          </g>
+          <ellipse cx="100" cy="32" rx="20" ry="6" fill="#a82c1f"/>
+          <rect x="92" y="20" width="16" height="14" rx="3" fill="#5d150d"/>
+          <circle cx="100" cy="28" r="3" fill="#ffeacc"/>
+          <g transform="translate(70,-10)" fill="white">
+            <ellipse cx="22" cy="18" rx="14" ry="6"/>
+            <ellipse cx="34" cy="14" rx="6" ry="3" fill="#ddd"/>
+            <path d="M2,12 Q14,2 22,16 Q30,2 42,12" stroke="white" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+            <circle cx="36" cy="13" r="1.4" fill="#222"/>
+            <path d="M40,15 L46,17 L40,18 Z" fill="#ffae3a"/>
+          </g>
+        </svg>
+
+        <!-- Eco badge -->
+        <div class="h-eco-badge">ЭКО-<br/>КВЕСТ</div>
+
+        <!-- NAV mock -->
+        <div class="nav-mock">
+          <div class="nm-brand">
+            <div class="mark"><svg width="14" height="16" viewBox="0 0 20 22" fill="#0a1828"><polygon points="10,1 19,6 19,16 10,21 1,16 1,6"/></svg></div>
+            <div>МОСКВАРИУМ &amp; BBDO<small>социальная инициатива</small></div>
+          </div>
+          <nav class="nm-menu">
+            <a>О проекте</a><a>Проблема</a><a>Эко-квест</a><a>Что делать</a><a>Партнёры</a>
+          </nav>
+          <a class="nm-cta">Перейти к Эко-квесту →</a>
+        </div>
+
+        <!-- Top line -->
+        <div class="top-line">
+          <div class="left"><div class="hex-mock"></div> МОСКВАРИУМ</div>
+          <div>С 8 ИЮНЯ</div>
+        </div>
+
+        <!-- Content -->
+        <div class="content">
+          <div class="tag">Погрузись в проблемы мирового океана</div>
+          <h1>С ОКЕАНОМ<br/><span class="light">НАЧИСТОТУ</span></h1>
+          <div class="ctas">
+            <a class="h-cta">Узнать об Эко-квесте →</a>
+            <a class="h-cta ghost">О социальной инициативе</a>
+          </div>
+        </div>
+
+        <div class="bottomline">
+          <div class="bbdo-mock">креативный партнёр</div>
+          <div><span class="slash-mock">///</span> Стартует во Всемирный день океана</div>
+        </div>
+        <div class="legal">6+ · Реклама. ООО «Возрождение ВВЦ» · ОГРН 1137746056788 · Москва, пр-т Мира, д. 119, стр. 23</div>
+
+        <!-- Annotation pins -->
+        <div class="pin" style="left:12%;top:34%"><span class="num">1</span><div>Чайки<small>анимация fly · 6s</small></div></div>
+        <div class="pin" style="left:46%;top:38%"><span class="num">2</span><div>Кит<small>SVG, opacity .78</small></div></div>
+        <div class="pin" style="left:8%;bottom:22%"><span class="num">3</span><div>Буй<small>200px, drop-shadow</small></div></div>
+        <div class="pin" style="right:6%;bottom:26%"><span class="num">4</span><div>Бейдж Эко-квест<small>108px · rotate -8°</small></div></div>
+      </div>
+    </div>
+
+    <!-- ===== Sub-sections of главная ===== -->
+    <div class="strip">
+      <!-- О проекте -->
+      <div class="strip-card">
+        <div class="strip-head"><b>О проекте</b><span>section 2/7</span></div>
+        <div class="strip-body about-mock">
+          <div>
+            <div class="eyebrow-mock">О проекте</div>
+            <h3>Социальная инициатива<br/><span class="accent">о чистой воде</span></h3>
+            <p class="lead">«С океаном начистоту» — социальная экологическая инициатива Москвариума и BBDO. В понятном формате — о загрязнении водоёмов и простых шагах для каждого.</p>
+            <div class="about-bullets-mock">
+              <div class="ab-row"><div class="ic">●</div><div><b>Тема</b><p>Загрязнение водных экосистем и его влияние на природу и человека.</p></div></div>
+              <div class="ab-row"><div class="ic">◐</div><div><b>Формат</b><p>Образовательно-интерактивный: тексты, образы и WebAR-квест.</p></div></div>
+              <div class="ab-row"><div class="ic">◇</div><div><b>Что вы получаете</b><p>Факты, советы маскотов и практические рекомендации на каждый день.</p></div></div>
+              <div class="ab-row"><div class="ic">◆</div><div><b>Эко-квест</b><p>WebAR-маршрут по экспозиции с очисткой воды и кодовым словом.</p></div></div>
+            </div>
+          </div>
+          <div class="about-art-mock">
+            <span class="float" style="left:10%;top:14%">🐢</span>
+            <span class="float" style="left:55%;top:8%">🐬</span>
+            <span class="float" style="left:78%;top:30%">🐠</span>
+            <span class="float" style="left:18%;top:42%">🪼</span>
+            <span class="float" style="left:48%;top:50%">🐟</span>
+            <span class="float" style="left:24%;top:64%">🦀</span>
+            <span class="float" style="left:70%;top:60%">🐡</span>
+            <div class="badge">
+              <b>10 ПРОВОДНИКОВ</b>
+              <p>Скат, белуга, парчовый сом, неоны, потамон, черепаха, иния, голубой хирург, аротрон и кит.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Проблема -->
+      <div class="strip-card">
+        <div class="strip-head"><b>Проблема</b><span>section 3/7</span></div>
+        <div class="strip-body">
+          <div class="eyebrow-mock">Проблема</div>
+          <h3 style="margin:6px 0 8px;font-size:24px;font-weight:900;line-height:1.06">Чистая вода — это не данность.<br/><span style="color:var(--coral)">Это привычка.</span></h3>
+          <p style="font-size:12px;line-height:1.55;color:rgba(255,255,255,.78);margin:0 0 6px;max-width:520px">
+            Большая часть мусора в реках и океанах — следствие повседневных привычек: одноразовый пластик, бытовая химия, синтетика.
+          </p>
+
+          <div class="poll-mock-grid">
+            <div class="poll-card-mock">
+              <div class="mas-wrap">
+                <div class="name">Черепаха предупреждает</div>
+                <div class="mas">
+                  <img src="Assets/Character_1.jpg" alt="Черепаха">
+                </div>
+              </div>
+              <div>
+                <h4>Бытовой пластик</h4>
+                <div class="meta-row"><b>Опасен</b>Морские обитатели принимают пакеты за медуз.</div>
+                <div class="meta-row"><b>Что делать</b>Многоразовая сумка, отказ от трубочек.</div>
+              </div>
+            </div>
+
+            <div class="poll-card-mock">
+              <div class="mas-wrap">
+                <div class="name">Голубой хирург предупреждает</div>
+                <div class="mas">
+                  <img src="Assets/Character_8.jpg" alt="Голубой хирург">
+                </div>
+              </div>
+              <div>
+                <h4>Микропластик</h4>
+                <div class="meta-row"><b>Опасен</b>Очистные не ловят, попадает в пищевую цепь.</div>
+                <div class="meta-row"><b>Что делать</b>Натуральные ткани, без скраба-глиттера.</div>
+              </div>
+            </div>
+
+            <div class="poll-card-mock">
+              <div class="mas-wrap">
+                <div class="name">Белуга предупреждает</div>
+                <div class="mas">
+                  <img src="Assets/Character_3.jpg" alt="Белуга">
+                </div>
+              </div>
+              <div>
+                <h4>Нефть и металлы</h4>
+                <div class="meta-row"><b>Опасны</b>Плёнка перекрывает кислород, металлы копятся.</div>
+                <div class="meta-row"><b>Что делать</b>Сдавать батарейки, не сливать масла.</div>
+              </div>
+            </div>
+
+            <div class="poll-card-mock">
+              <div class="mas-wrap">
+                <div class="name">Иния предупреждает</div>
+                <div class="mas">
+                  <img src="Assets/Character_7.jpg" alt="Иния">
+                </div>
+              </div>
+              <div>
+                <h4>Бытовая химия</h4>
+                <div class="meta-row"><b>Опасна</b>Цветение водорослей — рыбы задыхаются.</div>
+                <div class="meta-row"><b>Что делать</b>Биоразлагаемая химия, дозировать.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="chain-mock">
+            <div class="comp-label" style="color:var(--coral-soft)">Накопительный эффект</div>
+            <div style="font-size:14px;font-weight:800;margin-top:6px">Любое загрязнение возвращается. К нам же.</div>
+            <div class="chain-line">
+              <div class="chain-step-mock"><span class="ic">🧍</span>Человек</div>
+              <span class="chain-arrow-mock">→</span>
+              <div class="chain-step-mock"><span class="ic">🏙️</span>Город</div>
+              <span class="chain-arrow-mock">→</span>
+              <div class="chain-step-mock"><span class="ic">🚰</span>Стоки</div>
+              <span class="chain-arrow-mock">→</span>
+              <div class="chain-step-mock"><span class="ic">🏞️</span>Реки</div>
+              <span class="chain-arrow-mock">→</span>
+              <div class="chain-step-mock"><span class="ic">🌊</span>Океаны</div>
+              <span class="chain-arrow-mock">→</span>
+              <div class="chain-step-mock"><span class="ic">🐋</span>Животные</div>
+              <span class="chain-arrow-mock">→</span>
+              <div class="chain-step-mock alert"><span class="ic">🧍</span>Человек</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Тизер квеста -->
+      <div class="strip-card">
+        <div class="strip-head"><b>Тизер Эко-квеста</b><span>section 4/7</span></div>
+        <div class="strip-body qt-mock">
+          <div class="phone-mock">
+            <div class="scene"></div>
+            <div class="notch"></div>
+            <div class="hint">нажимай на мусор, чтобы очистить</div>
+            <span class="trash" style="left:18%;top:25%">🛍️</span>
+            <span class="trash" style="left:55%;top:18%">🥤</span>
+            <span class="trash" style="left:30%;top:42%">🧴</span>
+            <span class="trash" style="left:62%;top:38%">🪥</span>
+            <span class="trash" style="left:42%;top:55%">🦐</span>
+            <div class="bubble">«Помоги морю решить его глубокие проблемы»</div>
+            <div class="crab">🦀</div>
+          </div>
+          <div>
+            <div class="eyebrow-mock">Эко-квест в экспозиции</div>
+            <h3>10 локаций. 1 секретное<br/><span class="accent">кодовое слово.</span></h3>
+            <p class="lead">10 точек с QR-кодами в Москвариуме. Сканируй, открывай WebAR без приложения, помогай очищать воду.</p>
+            <div class="qt-features-mock">
+              <div class="qt-feat-mock"><div class="qfn">1</div><div><b>WebAR без установки</b><p>Открывается в Safari iOS и Chrome Android.</p></div></div>
+              <div class="qt-feat-mock"><div class="qfn">2</div><div><b>10 локаций — 10 проводников</b><p>На каждой точке свой маскот.</p></div></div>
+              <div class="qt-feat-mock"><div class="qfn">3</div><div><b>Кодовое слово в финале</b><p>Собери буквы — получи цифровые награды.</p></div></div>
+            </div>
+            <div style="margin-top:14px"><a class="btn-coral">Подробнее об Эко-квесте →</a></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4R -->
+      <div class="strip-card">
+        <div class="strip-head"><b>4R · что делать</b><span>section 5/7</span></div>
+        <div class="strip-body">
+          <div class="eyebrow-mock">Что можно сделать уже сегодня</div>
+          <h3 style="margin:6px 0 8px;font-size:24px;font-weight:900;line-height:1.06">Принцип 4R.<br/><span style="color:var(--coral)">Простые шаги, которые работают.</span></h3>
+          <p style="font-size:12px;line-height:1.55;color:rgba(255,255,255,.78);margin:0;max-width:520px">
+            Refuse, Reduce, Reuse, Recycle — четыре уровня экологичной привычки.
+          </p>
+          <div class="tabs-mock">
+            <div class="tab-mock active">Refuse · Откажись</div>
+            <div class="tab-mock">Reduce · Сократи</div>
+            <div class="tab-mock">Reuse · Используй снова</div>
+            <div class="tab-mock">Recycle · Переработай</div>
+          </div>
+          <div class="tip-grid-mock">
+            <div class="tip-mock"><div class="check">✓</div><div>Не бери одноразовые пакеты — носи свою многоразовую сумку.</div></div>
+            <div class="tip-mock"><div class="check">✓</div><div>Откажись от трубочек и одноразовых приборов в кафе.</div></div>
+            <div class="tip-mock"><div class="check">✓</div><div>Не покупай вещи, которые быстро ломаются.</div></div>
+            <div class="tip-mock"><div class="check">✓</div><div>Не бери лишнюю упаковку, если можно без неё.</div></div>
+            <div class="tip-mock"><div class="check">✓</div><div>Выбирай товары без «обёрток внутри обёртки».</div></div>
+            <div class="tip-mock"><div class="check">✓</div><div>Проси электронный чек вместо бумажного.</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Партнёры + Footer -->
+    <div class="strip" style="grid-template-columns:1fr">
+      <div class="strip-card">
+        <div class="strip-head"><b>Партнёры + Footer</b><span>section 6–7/7</span></div>
+        <div class="strip-body">
+          <div class="eyebrow-mock">Партнёры проекта</div>
+          <h3 style="margin:6px 0 8px;font-size:22px;font-weight:900">С нами на одной волне</h3>
+          <div class="partner-mock">
+            <div class="partner-cell">МОСКВАРИУМ</div>
+            <div class="partner-cell">BBDO</div>
+            <div class="partner-cell">партнёр</div>
+            <div class="partner-cell">партнёр</div>
+            <div class="partner-cell">партнёр</div>
+          </div>
+          <div style="margin-top:24px;padding-top:18px;border-top:1px solid var(--line);display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:22px;font-size:11px;color:rgba(255,255,255,.65)">
+            <div>
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><div style="width:24px;height:24px;border-radius:7px;background:linear-gradient(145deg,#fff,#e9f5fa)"></div><b style="color:#fff;font-weight:900;font-size:11px;letter-spacing:.06em">МОСКВАРИУМ &amp; BBDO</b></div>
+              <p style="margin:0;line-height:1.55;color:rgba(255,255,255,.55)">Образовательно-интерактивный проект о загрязнении водоёмов.</p>
+            </div>
+            <div><div class="comp-label" style="color:var(--coral-soft);margin-bottom:8px">Проект</div>О проекте<br/>Проблема<br/>Что делать<br/>Партнёры</div>
+            <div><div class="comp-label" style="color:var(--coral-soft);margin-bottom:8px">Эко-квест</div>Как работает<br/>Карта маршрута<br/>Персонажи<br/>Кодовое слово</div>
+            <div><div class="comp-label" style="color:var(--coral-soft);margin-bottom:8px">Москвариум</div>moskvarium.ru<br/>пр-т Мира 119с23<br/>10:00–22:00<br/>+7 (495) 543-22-55</div>
+          </div>
+          <div style="margin-top:18px;padding-top:14px;border-top:1px solid var(--line);display:flex;justify-content:space-between;color:rgba(255,255,255,.4);font-size:11px;flex-wrap:wrap;gap:6px">
+            <div>© 2026 ООО «Возрождение ВВЦ». ОГРН 1137746056788. Реклама. 6+</div>
+            <div>BBDO Moscow · Креативная разработка</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ ECO-QUEST PAGE ============ -->
+  <div class="section">
+    <div class="section-head">
+      <div>
+        <div class="b-eyebrow"><span class="bar"></span> Эко-квест · eco-quest.html</div>
+        <h2>Страница квеста</h2>
+        <p class="h2-sub">Hero-плакат, 9 шагов механики, интерактивная карта 10 локаций с поп-апами AR, галерея 10 маскотов и финал с раскрытием кодового слова.</p>
+      </div>
+      <div class="right-meta">3-я секция · карта-герой</div>
+    </div>
+
+    <div class="frame">
+      <div class="frame-bar">
+        <span class="frame-dot r"></span><span class="frame-dot y"></span><span class="frame-dot g"></span>
+        <span class="frame-url">moskvarium-ocean.ru / eco-quest.html</span>
+        <span class="frame-tag">Quest · 9 steps + map + 10 mascots</span>
+      </div>
+      <div class="frame-body eq-mock">
+        <div class="crumb">Главная / <span style="color:#fff">Эко-квест</span></div>
+        <h1>Эко-квест<br/><span class="light">в Москвариуме</span></h1>
+        <p class="lead">Десять локаций — десять историй о воде и тех, кто в ней живёт. На каждой точке маскот-проводник расскажет о загрязнении и выдаст букву кодового слова. Без установки приложений.</p>
+        <div class="eq-meta">
+          <div><b>10</b>локаций</div>
+          <div><b>10</b>маскотов-проводников</div>
+          <div><b>1</b>кодовое слово</div>
+          <div><b>WebAR</b>без приложения</div>
+        </div>
+
+        <!-- 9 steps -->
+        <div class="eq-steps-grid">
+          <div class="eq-s-card"><div class="num">1</div><h4>Найди QR на табличке</h4><p>На каждом из 10 аквариумов — свой QR-код квеста.</p></div>
+          <div class="eq-s-card"><div class="num">2</div><h4>Сканируй камерой</h4><p>Открой ссылку — WebAR запустится в браузере.</p></div>
+          <div class="eq-s-card"><div class="num">3</div><h4>Дай доступ к камере</h4><p>Браузер подгрузит сцену прямо поверх кадра.</p></div>
+          <div class="eq-s-card"><div class="num">4</div><h4>Поприветствуй маскота</h4><p>Проводник появится рядом — он расскажет о теме.</p></div>
+          <div class="eq-s-card"><div class="num">5</div><h4>Очищай воду</h4><p>Тапай по мусору — он исчезает, цвет воды светлеет.</p></div>
+          <div class="eq-s-card"><div class="num">6</div><h4>Получи факт и совет</h4><p>В финале сцены — короткая карточка с действием.</p></div>
+          <div class="eq-s-card"><div class="num">7</div><h4>Забери букву</h4><p>Каждая локация выдаёт одну букву кодового слова.</p></div>
+          <div class="eq-s-card"><div class="num">8</div><h4>Собери все 10</h4><p>Слово раскрывается, когда заполнятся все клетки.</p></div>
+          <div class="eq-s-card"><div class="num">9</div><h4>Открой награды</h4><p>Введи слово на сайте — откроется скрытая страница.</p></div>
+        </div>
+
+        <!-- Map -->
+        <div style="margin-top:30px"><div class="eyebrow-mock">Карта маршрута</div>
+        <div style="font-size:18px;font-weight:900;margin-top:6px">10 локаций по экспозиции</div></div>
+        <div class="eq-map">
+          <svg class="routes" viewBox="0 0 1200 320" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M60,260 C 200,180 280,200 360,140 C 440,90 540,160 620,120 C 720,80 800,210 900,180 C 1000,150 1100,220 1140,260" stroke="rgba(127,234,255,.45)" stroke-width="3" fill="none" stroke-dasharray="6 6"/>
+          </svg>
+          <div class="map-pin" style="left:6%;top:78%">1</div><div class="map-label" style="left:6%;top:78%">Перелётные скаты</div>
+          <div class="map-pin" style="left:18%;top:55%">2</div><div class="map-label" style="left:18%;top:55%">Белуга</div>
+          <div class="map-pin" style="left:30%;top:42%">3</div><div class="map-label" style="left:30%;top:42%">Парчовый сом</div>
+          <div class="map-pin" style="left:42%;top:32%">4</div><div class="map-label" style="left:42%;top:32%">Неоны</div>
+          <div class="map-pin" style="left:54%;top:38%">5</div><div class="map-label" style="left:54%;top:38%">Потамон</div>
+          <div class="map-pin" style="left:64%;top:28%">6</div><div class="map-label" style="left:64%;top:28%">Черепаха</div>
+          <div class="map-pin" style="left:74%;top:50%">7</div><div class="map-label" style="left:74%;top:50%">Иния</div>
+          <div class="map-pin" style="left:82%;top:60%">8</div><div class="map-label" style="left:82%;top:60%">Голубой хирург</div>
+          <div class="map-pin" style="left:90%;top:70%">9</div><div class="map-label" style="left:90%;top:70%">Аротрон</div>
+          <div class="map-pin" style="left:96%;top:82%">10</div><div class="map-label" style="left:96%;top:82%">Кит</div>
+        </div>
+
+        <!-- Mascots -->
+        <div style="margin-top:32px"><div class="eyebrow-mock">10 проводников</div>
+        <div style="font-size:18px;font-weight:900;margin-top:6px">У каждого — своя история</div></div>
+        <div class="mascot-strip">
+          <div class="mas-cell"><div class="picture">🟫</div><div class="name">Скат</div><div class="letter">Ч</div></div>
+          <div class="mas-cell"><div class="picture">🤍</div><div class="name">Белуга</div><div class="letter">И</div></div>
+          <div class="mas-cell"><div class="picture">🐟</div><div class="name">Парчовый сом</div><div class="letter">С</div></div>
+          <div class="mas-cell"><div class="picture">✨</div><div class="name">Неоны</div><div class="letter">Т</div></div>
+          <div class="mas-cell"><div class="picture">🦀</div><div class="name">Потамон</div><div class="letter">О</div></div>
+          <div class="mas-cell"><div class="picture">🐢</div><div class="name">Черепаха</div><div class="letter">Е</div></div>
+          <div class="mas-cell"><div class="picture">🐬</div><div class="name">Иния</div><div class="letter">М</div></div>
+          <div class="mas-cell"><div class="picture">🐠</div><div class="name">Хирург</div><div class="letter">О</div></div>
+          <div class="mas-cell"><div class="picture">🐡</div><div class="name">Аротрон</div><div class="letter">Р</div></div>
+          <div class="mas-cell"><div class="picture">🐋</div><div class="name">Кит</div><div class="letter">Е</div></div>
+        </div>
+
+        <!-- Final reveal -->
+        <div class="final-code">
+          <div class="e">Финал · кодовое слово</div>
+          <div style="font-size:22px;font-weight:900;margin-top:6px">Собери все буквы — раскрой награды</div>
+          <div class="word">
+            <div class="letter-tile">Ч</div>
+            <div class="letter-tile">И</div>
+            <div class="letter-tile">С</div>
+            <div class="letter-tile">Т</div>
+            <div class="letter-tile">О</div>
+            <div class="letter-tile">Е</div>
+            <div class="letter-tile" style="background:rgba(255,255,255,.18);color:rgba(255,255,255,.5)">·</div>
+            <div class="letter-tile">М</div>
+            <div class="letter-tile">О</div>
+            <div class="letter-tile">Р</div>
+            <div class="letter-tile">Е</div>
+          </div>
+          <div style="margin-top:14px;font-size:12px;color:rgba(255,255,255,.6)">введи на странице наград — откроется скрытый раздел</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ REWARDS ============ -->
+  <div class="section">
+    <div class="section-head">
+      <div>
+        <div class="b-eyebrow"><span class="bar"></span> Награды · rewards.html</div>
+        <h2>Скрытая страница</h2>
+        <p class="h2-sub">noindex/nofollow, не в меню. Гейт с вводом кодового слова. После разлока — 7 цифровых наград и фиксация прогресса в localStorage.</p>
+      </div>
+      <div class="right-meta">2 состояния · locked / unlocked</div>
+    </div>
+
+    <div class="rew-mocks">
+      <!-- Locked -->
+      <div class="rew-state">
+        <div class="state-bar"><b>Locked · до ввода кодового слова</b><span>state 1/2</span></div>
+        <div class="gate-mock">
+          <div class="lock">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+          </div>
+          <div class="eyebrow-mock" style="justify-content:center">Награды экоспасателя</div>
+          <h3>Эта страница откроется<br/>после Эко-квеста</h3>
+          <p>Пройди квест в Москвариуме, собери буквы и введи кодовое слово. Внутри — 7 цифровых наград, чек-листы и промокоды.</p>
+          <div class="gate-input">
+            <input placeholder="Кодовое слово" />
+            <button>Открыть</button>
+          </div>
+          <div class="hint">подсказка: два слова — про чистоту и про море</div>
+        </div>
+      </div>
+
+      <!-- Unlocked -->
+      <div class="rew-state">
+        <div class="state-bar"><b>Unlocked · 7 наград</b><span>state 2/2</span></div>
+        <div class="rew-unlocked">
+          <div class="top">
+            <div class="e">Поздравляем · награды разблокированы</div>
+            <h3>Ты прошёл Эко-квест</h3>
+            <p>Сохраняй, делись, используй. Промокоды действуют до 30 сентября 2026.</p>
+          </div>
+          <div class="rew-grid-mock">
+            <div class="rew-tile"><div class="ic">🎨</div><h5>Стикерпак Telegram</h5><p>10 маскотов. Установка в один клик.</p><span class="download">Скачать ↗</span></div>
+            <div class="rew-tile"><div class="ic">📱</div><h5>Обои на телефон</h5><p>Key visual в 4K, под все экраны.</p><span class="download">Скачать ↗</span></div>
+            <div class="rew-tile"><div class="ic">🪪</div><h5>Именной сертификат</h5><p>Твоё имя — на бланке экоспасателя.</p><span class="download">Сгенерировать ↗</span></div>
+            <div class="rew-tile"><div class="ic">🎟️</div><h5>Промокоды партнёров</h5><p>Эко-кафе, многоразовые бутылки.</p><span class="download">Активировать ↗</span></div>
+            <div class="rew-tile"><div class="ic">✅</div><h5>Эко-чек-лист</h5><p>Привычки на 30 дней. PDF.</p><span class="download">Скачать ↗</span></div>
+            <div class="rew-tile"><div class="ic">🗂️</div><h5>Памятка по сортировке</h5><p>Что куда, понятно и коротко.</p><span class="download">Скачать ↗</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ COMPONENTS ============ -->
+  <div class="section">
+    <div class="section-head">
+      <div>
+        <div class="b-eyebrow"><span class="bar"></span> Компоненты</div>
+        <h2>Кнопки · чипы · ввод</h2>
+        <p class="h2-sub">Базовые элементы интерфейса. Корпоративный коралловый CTA, призрачная вторичная, чипы и поля.</p>
+      </div>
+      <div class="right-meta">12 компонентов</div>
+    </div>
+
+    <div class="comp-grid">
+      <div class="comp-card">
+        <div class="comp-label">Button · primary</div>
+        <h4>CTA — коралловая</h4>
+        <div class="demo">
+          <button class="btn-coral">Узнать об Эко-квесте →</button>
+          <button class="btn-coral">Открыть</button>
+        </div>
+        <div class="comp-spec">
+          padding: 13–16px 22–28px<br/>
+          background: linear-gradient(90deg, #ff6a5c, #ff8c75)<br/>
+          shadow: 0 12px 30px rgba(255,106,92,.4)<br/>
+          radius: 999px (pill)
+        </div>
+      </div>
+
+      <div class="comp-card">
+        <div class="comp-label">Button · ghost</div>
+        <h4>Вторичная — призрачная</h4>
+        <div class="demo">
+          <button class="btn-ghost">О социальной инициативе</button>
+          <button class="btn-ghost">Подробнее</button>
+        </div>
+        <div class="comp-spec">
+          background: transparent<br/>
+          border: 1.5px solid rgba(255,255,255,.35)<br/>
+          hover: bg rgba(255,255,255,.06)
+        </div>
+      </div>
+
+      <div class="comp-card">
+        <div class="comp-label">Chip / tag</div>
+        <h4>Чипы и теги</h4>
+        <div class="demo">
+          <span class="chip-demo">10 ЛОКАЦИЙ</span>
+          <span class="chip-demo tag">WebAR</span>
+          <span class="chip-demo tag">6+</span>
+        </div>
+        <div class="comp-spec">
+          font-size: 11–14px<br/>
+          letter-spacing: .04em<br/>
+          radius: 999px
+        </div>
+      </div>
+
+      <div class="comp-card">
+        <div class="comp-label">Eyebrow + bar</div>
+        <h4>Заголовок-надсечка</h4>
+        <div class="demo"><div class="eyebrow-mock">О проекте</div></div>
+        <div class="comp-spec">
+          color: var(--coral-soft)<br/>
+          font: 11px / .22em / 700 / uppercase<br/>
+          accent: 24×2px coral bar
+        </div>
+      </div>
+
+      <div class="comp-card">
+        <div class="comp-label">Input</div>
+        <h4>Поле ввода</h4>
+        <div class="demo" style="flex-direction:column;align-items:stretch">
+          <input class="input-demo" placeholder="Кодовое слово" />
+        </div>
+        <div class="comp-spec">
+          background: rgba(255,255,255,.05)<br/>
+          border: 1px solid var(--line)<br/>
+          radius: 9px
+        </div>
+      </div>
+
+      <div class="comp-card">
+        <div class="comp-label">Tabs · pills</div>
+        <h4>Переключатель 4R</h4>
+        <div class="demo">
+          <span class="tab-mock active" style="font-size:11px">Refuse</span>
+          <span class="tab-mock" style="font-size:11px">Reduce</span>
+          <span class="tab-mock" style="font-size:11px">Reuse</span>
+          <span class="tab-mock" style="font-size:11px">Recycle</span>
+        </div>
+        <div class="comp-spec">
+          inactive: bg rgba(255,255,255,.04)<br/>
+          active: coral + shadow
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ MOBILE ============ -->
+  <div class="section">
+    <div class="section-head">
+      <div>
+        <div class="b-eyebrow"><span class="bar"></span> Адаптив · 375px</div>
+        <h2>Мобильные экраны</h2>
+        <p class="h2-sub">На <code style="background:rgba(255,255,255,.08);padding:2px 6px;border-radius:5px;font-size:12px">≤ 980px</code> прячется верхнее меню; герой ужимается, сетки 1фр; кит и ползунок 4R адаптируются.</p>
+      </div>
+      <div class="right-meta">3 ключевых экрана</div>
+    </div>
+
+    <div class="mobile-row">
+      <!-- Mob 1: hero -->
+      <div class="mob-frame">
+        <div class="mob-screen s1">
+          <div class="mob-notch"></div>
+          <!-- mini KV -->
+          <div style="position:absolute;inset:0">
+            <div style="position:absolute;inset:0;background:radial-gradient(110% 70% at 50% 0%, rgba(160,210,225,.55) 0%, rgba(78,128,158,.35) 35%, transparent 70%),linear-gradient(180deg,#7fb6cf 0%, #4a86a8 30%, #1d4862 55%, #0a2233 100%);"></div>
+            <div style="position:absolute;left:0;right:0;bottom:0;height:60%;background:linear-gradient(180deg, rgba(20,50,90,0) 0%, rgba(15,40,80,.35) 30%, rgba(10,30,60,.6) 100%);"></div>
+            <svg style="position:absolute;left:6%;bottom:14%;width:75px;filter:drop-shadow(0 14px 18px rgba(0,0,0,.55))" viewBox="0 0 200 320">
+              <path d="M40,160 Q40,140 50,135 L150,135 Q160,140 160,160 L160,260 Q160,300 100,310 Q40,300 40,260 Z" fill="#d4382a" stroke="#5d150d" stroke-width="2"/>
+              <ellipse cx="100" cy="135" rx="55" ry="12" fill="#a82c1f"/>
+              <ellipse cx="100" cy="133" rx="50" ry="9" fill="#1a0808"/>
+              <line x1="62" y1="135" x2="62" y2="40" stroke="#a82c1f" stroke-width="6"/>
+              <line x1="100" y1="135" x2="100" y2="32" stroke="#a82c1f" stroke-width="6"/>
+              <line x1="138" y1="135" x2="138" y2="40" stroke="#a82c1f" stroke-width="6"/>
+              <ellipse cx="100" cy="100" rx="42" ry="10" stroke="#a82c1f" stroke-width="5" fill="none"/>
+            </svg>
+            <div style="position:absolute;right:7%;bottom:14%;width:48px;height:48px;border-radius:50%;background:radial-gradient(circle at 35% 30%, #ff8a76, #ff5040 70%);display:grid;place-items:center;color:#fff;font-weight:900;letter-spacing:.04em;font-size:8px;line-height:1.05;text-align:center;box-shadow:0 8px 16px rgba(255,80,64,.55), inset 0 0 0 2px rgba(255,255,255,.18);transform:rotate(-8deg)">ЭКО-<br/>КВЕСТ</div>
+          </div>
+          <div class="mob-content" style="position:relative">
+            <div style="font-size:9px;font-weight:800;letter-spacing:.06em;color:rgba(255,255,255,.85);margin-bottom:6px">МОСКВАРИУМ · С 8 ИЮНЯ</div>
+            <div style="font-size:11px;color:rgba(255,255,255,.85);margin-bottom:6px">Погрузись в проблемы океана</div>
+            <h6>С ОКЕАНОМ<br/><span class="light">НАЧИСТОТУ</span></h6>
+            <p>Социальная инициатива Москвариума и BBDO о чистой воде и простых шагах.</p>
+            <div style="display:flex;flex-direction:column;gap:6px;margin-top:8px"><span class="mcta">Узнать об Эко-квесте →</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mob 2: problem cards -->
+      <div class="mob-frame">
+        <div class="mob-screen" style="background:linear-gradient(180deg,#03192a,#021320)">
+          <div class="mob-notch"></div>
+          <div class="mob-content">
+            <div class="eyebrow-mock" style="font-size:9px">Проблема</div>
+            <h6 style="font-size:24px">Чистая вода —<br/>это <span style="color:var(--coral)">привычка.</span></h6>
+            <p style="font-size:10.5px">Большая часть мусора в реках и океанах — следствие повседневных привычек.</p>
+            <div style="display:grid;gap:8px">
+              <div class="poll-card-mock" style="grid-template-columns:40px 1fr;padding:10px"><div class="mas" style="width:40px;height:40px;font-size:18px">🐢</div><div><div class="name">Черепаха</div><h4 style="font-size:11px">Бытовой пластик</h4><div class="meta-row" style="font-size:9.5px">Многоразовая сумка, отказ от трубочек.</div></div></div>
+              <div class="poll-card-mock" style="grid-template-columns:40px 1fr;padding:10px"><div class="mas" style="width:40px;height:40px;font-size:18px">🐠</div><div><div class="name">Голубой хирург</div><h4 style="font-size:11px">Микропластик</h4><div class="meta-row" style="font-size:9.5px">Натуральные ткани, без скраба.</div></div></div>
+              <div class="poll-card-mock" style="grid-template-columns:40px 1fr;padding:10px"><div class="mas" style="width:40px;height:40px;font-size:18px">🐋</div><div><div class="name">Белуга</div><h4 style="font-size:11px">Нефть и металлы</h4><div class="meta-row" style="font-size:9.5px">Сдавать батарейки, не сливать масла.</div></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mob 3: AR phone -->
+      <div class="mob-frame">
+        <div class="mob-screen" style="background:radial-gradient(80% 40% at 50% 0%, rgba(127,234,255,.4), transparent 65%),linear-gradient(180deg,#0e6e94 0%, #073452 60%, #021728 100%)">
+          <div class="mob-notch"></div>
+          <div style="position:absolute;left:14px;right:14px;top:38px;padding:9px 12px;border-radius:11px;background:rgba(0,0,0,.5);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.14);color:#fff;font-size:10px;text-align:center;font-weight:600;z-index:5">нажимай на мусор, чтобы очистить</div>
+          <span style="position:absolute;left:18%;top:25%;font-size:18px">🛍️</span>
+          <span style="position:absolute;left:55%;top:18%;font-size:18px">🥤</span>
+          <span style="position:absolute;left:30%;top:42%;font-size:18px">🧴</span>
+          <span style="position:absolute;left:62%;top:38%;font-size:18px">🪥</span>
+          <span style="position:absolute;left:42%;top:55%;font-size:18px">🦐</span>
+          <div style="position:absolute;left:14px;right:14px;bottom:80px;background:#fff;color:#0a1828;border-radius:12px;padding:10px 12px;font-size:10px;font-weight:700;text-align:center;box-shadow:0 12px 22px rgba(0,0,0,.4);z-index:5">«Помоги морю решить его глубокие проблемы»</div>
+          <span style="position:absolute;left:50%;bottom:18px;transform:translateX(-50%);font-size:42px;z-index:6">🦀</span>
+          <div style="position:absolute;left:0;right:0;bottom:8px;text-align:center;color:rgba(255,255,255,.6);font-size:9px;z-index:7">tap target ≥ 44px · WebAR scene</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ FOOTER ============ -->
+  <div class="b-foot">
+    <div>Дизайн-борд · С океаном начистоту · Москвариум × BBDO · 27 апреля 2026</div>
+    <div>3 страницы · 7 секций · 10 маскотов · 1 кодовое слово</div>
+  </div>
+</div>
+
+</body>
+</html>
